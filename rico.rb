@@ -39,7 +39,11 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 		puts attr
 	end
 	
-	chunks = rel.attributes.each_slice(1).to_a 
+	chunks = rel.attributes.each_slice(1).to_a # we now have chunks of things
+
+	# need to now add empty array onto arrays
+	things = Array.new # => []
+	chunks.each {|chunk| chunk.push(things)}
 	p chunks
-	
+
 end
