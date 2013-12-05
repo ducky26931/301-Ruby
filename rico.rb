@@ -14,11 +14,13 @@ require_relative 'rarff-hotpatch.rb'
 
 
 # Partition of size one
-def partition1_attribute(attributes) # array containing attribute
-	parts = attributes.map { |a| [] } 	# table of attribute value combinations
-	p parts
+class Array
+	def chunks(size)
+	#return array of arrays
+	end
 end
 
+ 
 # partition1_attribute([1,2,3])
 
 if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm smart :P
@@ -36,8 +38,8 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 	rel.attributes.each do |attr|
 		puts attr
 	end
-
-	rel.instances.each do |inst|
-		puts inst
-	end
+	
+	chunks = rel.attributes.each_slice(1).to_a 
+	p chunks
+	
 end
