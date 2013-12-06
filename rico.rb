@@ -26,6 +26,21 @@ require_relative 'rarff-hotpatch.rb'
 					# add subset to coverings
 
 
+<<<<<<< HEAD
+=======
+# Partitioning Algorithms
+#	Takes a list of attribute numbers attrs
+#	Returns a list of lists such that each sublist is a partition of the attributes
+#	Uses the data table (dataTable) and the array that holds the attribute values (attrVals)
+
+# Let n = size(attrs)
+# Make n
+
+
+
+
+
+>>>>>>> 53401146e7f2e60bf851910edf86cf965405106a
 
 
 # Partition of size one
@@ -36,6 +51,9 @@ class Array
 end
 
 # partition1_attribute([1,2,3])
+
+
+
 
 if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm smart :P
 	if ARGV[0]
