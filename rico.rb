@@ -75,17 +75,11 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 	# => => If non empty the partion will be returned and appended to 'partitions'
 	# => return the partions
 
-
-
-# is a partition-a a proper subset of partition-b
-	# takes two partitions
-	# calls included
-	# returns true if the first partition fits in the second
-	def proper_subset (part_da, chunks) #2 partitions that will be compared
+	def proper_subset (part_da, chunks) 
 		return chunks.all?{|part|
-			part_da.any?{|dec_attr|
-			part.all?{|attr_next|
-			}
+	  		part_da.any?{|dec_attr|
+			part.all?{|attr_next| dec_attr.include?(attr_next)
+			}# checks to see if all things in chunks is in part_da
 
 		#sub_partition part = Array.new
 		#included is true if the ith partition of part is comtained in part_da
