@@ -20,7 +20,7 @@ def proper_subset (partition_da, partition_other)
 end
 
 def minimal (set_of_attr, coverings)
-  return !coverings.any? {|cover|
+  !coverings.any? {|cover|
     set_of_attr.all?{|attr|
       cover.include?(attr)
     }
@@ -34,9 +34,9 @@ def partition (attrs, attribute_values)
   parts = Array.new
   case attrs.length
     when 1
-      partition = Array.new(attribute_values[attrs[0]].length, Array.new)
+      part = Array.new(attribute_values[attrs[0]].length, Array.new)
       (0...rel.instances.length).each do|i|
-        partition[lookup(rel.instance[i][attrs[0]])].add(i) # Find the value of the attribute for this instance and add it to the spot in partition
+        part[lookup(rel.instance[i][attrs[0]])].add(i) # Find the value of the attribute for this instance and add it to the spot in partition
 
       end
       partition.each{|part|
@@ -45,11 +45,11 @@ def partition (attrs, attribute_values)
         end
       }
     when 2
-      partition = Array.new(attribute_values[attrs[0]].length, Array.new(attributeValues[attrs[1]].length, Array.new()))
+      part = Array.new(attribute_values[attrs[0]].length, Array.new(attributeValues[attrs[1]].length, Array.new()))
       (0...rel.instance.length).each do |i|
-        partition[lookup(rel.instance[i][attrs[0]])][lookup(rel.instance[i][attrs[1]])].add(i) # Find the value of the attribute for this instance and add it to the spot in partition
+        part[lookup(rel.instance[i][attrs[0]])][lookup(rel.instance[i][attrs[1]])].add(i) # Find the value of the attribute for this instance and add it to the spot in partition
       end
-      partition.each{|part0|
+      part.each{|part0|
         part0.each {|part1|
           unless part1.empty?
             parts.add(part1)
