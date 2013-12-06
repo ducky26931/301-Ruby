@@ -52,7 +52,6 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 					coverings.add(set) # Add the set to coverings
 				end
 			end
-		}
 	end
 
 	# Coverings if done and complete at this point
