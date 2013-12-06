@@ -92,14 +92,20 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
   #of all indexes for the attributes (0,1,2,3,....) and remove every index that is in the d_attributes list
   coverings = Array.new # Array of a sets that make coverings
 	
-	# Check the partition of each non-decision attribute
-	nd_attributes.each {|attribute|
-		if proper_subset(da_partition, partition(attribute, attribute_values))
-			set = Array.new(attribute)
-			coverings.push(set) # add the list containing the attribute to coverings
-			nd_attributes.remove(attribute) # remove the attribute from nDAttribute
-		end
-	}
+# Check the partition of each non-decision attribute
+#	nd_attributes.each {|attribute|
+#		if proper_subset(da_partition, partition(attribute, attribute_values))
+#			set = Array.new(attribute)
+#			coverings.push(set) # add the list containing the attribute to coverings
+#			nd_attributes.remove(attribute) # remove the attribute from nDAttribute
+#		end
+#	}
+
+nd_attributes = 
+(0...rel.attributes.length).map{|idx
+  | idx if d_attributes.include?
+  (ind)}.compact
+end
 
 	# Make all subsets that contain more than 1 attribute
 	(2..max_partition_size).each do|i|
