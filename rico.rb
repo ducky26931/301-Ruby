@@ -35,7 +35,7 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 	
 	# Check the partition of each non-decision attribute
 	nDAttributes.each {|attribute|
-		if(properSubset(dAPartition, partition(attribute)))
+		if properSubset(dAPartition, partition(attribute))
 			set = Array.new(attibute)
 			coverings.add(set) # add the list containing the attribute to coverings
 			nDAttributes.remove(attribute) # remove the attribute from nDAttribute
