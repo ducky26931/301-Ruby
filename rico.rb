@@ -83,7 +83,8 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 					partition[lookup(rel.instance[i][attrs[0]])].add(i) # Find the value of the attribute for this instance and add it to the spot in partition
 				end
 				partition.each{|part|
-					if( !part.empty? )
+					#if( !part.empty? )
+					unless part.empty? 
 						attrs.add(part)
 					end
 				}
@@ -94,7 +95,8 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 				end
 				partition.each{|part0|
 					part0.each {|part1|
-						if( !part1.empty? )
+						#if( !part1.empty? )
+						unless part1.empty?
 							attrs.add(part1)
 						end
 					}
