@@ -87,7 +87,7 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 	### Ask for Min coverage for rules
 	attribute_values = Array.new ### Make this# An array that holds the nominal values for each attribute in a subarray
 	da_partition = partition(d_attributes, attribute_values) # The partition of the decision attributes
-	nd_attributes = attributes.remove(da_partition)# The set of non decision attribute indexes (ints)
+	nd_attributes = attributes.to_a.remove(da_partition)# The set of non decision attribute indexes (ints)
 	coverings = Array.new # Array of a sets that make coverings
 	
 	# Check the partition of each non-decision attribute
