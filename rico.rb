@@ -5,6 +5,67 @@ require 'backports'
 #that's what you use to include needed files
 require_relative 'rarff-hotpatch.rb'
 
+def lookup (value, attr_num, attribute_values)
+  attribute_values[attr_num].index(value)
+end
+
+def proper_subset (partition_da, partition_other)
+  partition_other.all?{|part_o|
+    partition_da.any?{|part_da|
+      part_o.all?{|element|
+        part_da.include?(element)
+      }
+    }# checks to see if all elements of each of other's partition is included in a partition of the DA
+  }
+end
+
+def minimal (set_of_attr, coverings)
+  return !coverings.any? {|cover|
+    set_of_attr.all?{|attr|
+      cover.include?(attr)
+    }
+  }
+end
+
+# Coverings if done and complete at this point
+# Begin creating rules from this
+# Print rules and other things
+def partition (attrs)
+  parts = Array.new
+  case attrs.length
+    when 1
+      partition = Array.new(attributeValues[attrs[0]].length, Array.new)
+      #for( int i = 0; i < rel.instances.length; i++ )
+      #	partition[lookup(rel.instance[i][attrs[0]])].add(i) # Find the value of the attribute for this instance and add it to the spot in partition
+      (0...rel.instances.length).each do|i|
+        partition[lookup(rel.instance[i][attrs[0]])].add(i) # Find the value of the attribute for this instance and add it to the spot in partition
+
+      end
+      partition.each{|part|
+        #if( !part.empty? )
+        unless part.empty?
+          attrs.add(part)
+        end
+      }
+    when 2
+      partition = Array.new(attributeValues[attrs[0]].length, Array.new(attributeValues[attrs[1]].length, Array.new()))
+      #for( int i = 0; i < rel.instances.length; i++ )
+      #	partition[lookup(rel.instance[i][attrs[0]])][lookup(rel.instance[i][attrs[1]])].add(i) # Find the value of the attribute for this instance and add it to the spot in partition
+      (0...rel.instance.length).each do |i|
+        partition[lookup(rel.instance[i][attrs[0]])][lookup(rel.instance[i][attrs[1]])].add(i) # Find the value of the attribute for this instance and add it to the spot in partition
+      end
+      partition.each{|part0|
+        part0.each {|part1|
+          #if( !part1.empty? )
+          unless part1.empty?
+            attrs.add(part1)
+          end
+        }
+      }
+    else
+
+  end
+end
 
 if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm smart :P
 	if ARGV[0] # If an argument is provided read the given file
@@ -49,75 +110,7 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 		coverings += new_sets
 	end
 
-	def lookup (value, attr_num, attribute_values)
-		attribute_values[attr_num].index(value)
-	end
-	
-	def proper_subset (partition_da, partition_other)
-		partition_other.all?{|part_o|
-      partition_da.any?{|part_da|
-				part_o.all?{|element|
-					part_da.include?(element)
-				}
-			}# checks to see if all elements of each of other's partition is included in a partition of the DA
-		}
-	end
-	
-	def minimal (set_of_attr, coverings)
-		return !coverings.any? {|cover|
-      set_of_attr.all?{|attr|
-				cover.include?(attr)
-			}
-		}
-	end
 
-		# Coverings if done and complete at this point
-	# Begin creating rules from this
-	# Print rules and other things
-	def partition (attrs)
-		parts = Array.new
-		case attrs.length
-			when 1
-				partition = Array.new(attributeValues[attrs[0]].length, Array.new)
-				#for( int i = 0; i < rel.instances.length; i++ )
-				#	partition[lookup(rel.instance[i][attrs[0]])].add(i) # Find the value of the attribute for this instance and add it to the spot in partition
-				(0...rel.instances.length).each do|i|
-					partition[lookup(rel.instance[i][attrs[0]])].add(i) # Find the value of the attribute for this instance and add it to the spot in partition
-
-				end
-				partition.each{|part|
-					#if( !part.empty? )
-					unless part.empty? 
-						attrs.add(part)
-					end
-				}
-			when 2
-				partition = Array.new(attributeValues[attrs[0]].length, Array.new(attributeValues[attrs[1]].length, Array.new()))
-				#for( int i = 0; i < rel.instances.length; i++ )
-				#	partition[lookup(rel.instance[i][attrs[0]])][lookup(rel.instance[i][attrs[1]])].add(i) # Find the value of the attribute for this instance and add it to the spot in partition
-				(0...rel.instance.length).each do |i|
-					partition[lookup(rel.instance[i][attrs[0]])][lookup(rel.instance[i][attrs[1]])].add(i) # Find the value of the attribute for this instance and add it to the spot in partition
-				end
-				partition.each{|part0|
-					part0.each {|part1|
-						#if( !part1.empty? )
-						unless part1.empty?
-							attrs.add(part1)
-						end
-					}
-				}
-			when 3
-				
-			when 4
-				
-			when 5
-				
-			when 6
-				
-			when 7
-				
-		end
-	end
 
 end
 
