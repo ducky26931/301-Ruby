@@ -45,7 +45,7 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 		puts attr
 	end
 	
-	attributes = # array of attribute indexes (ints)
+	attributes = (0...rel.attributes.length) # array of attribute indexes (ints)
 	dAttributes = # array of decision attribute indexes (ints)
 	dAPartition = # array of shit
 	# Set dAPartition for 
@@ -54,8 +54,13 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 	
 	# Check the partition of each non-decision attribute
 	nDAttributes.each {|attribute|
-	
+		if (properSubset( dAPartition, partition(attribute) ))
+		{
+			# add a list containing only the attribute to coverings
+			#remove attribute from nDAttributes
+		}
 	}
+	
 	# Make all subsets of 1 attribute
 # 	Takes a list of non decision attributes (a list of integers) and the list of coverings (a list of list of integers)
 #	For each non-decision attribute find it's partition
@@ -74,8 +79,13 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 				# If this subset is a proper subset of daPart
 					# add subset to coverings
 
-					chunks = rel.attributes.each_slice(1).to_a # we now have chunks of things
-
+	# Coverings if done and complete at this point
+	# Begin creating rules from this
+	
+	
+	
+	
+	
 	# need to now add empty array onto arrays
 	things = Array.new # => []
 	chunks.each {|chunk| chunk.push(things)}
@@ -87,15 +97,13 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 	# => => If non empty the partion will be returned and appended to 'partitions'
 	# => return the partions
 
-	def proper_subset (part_da, chunks) 
-		return chunks.all?{|part|
-
-
-	  		part_da.any?{|dec_attr|
-				part.all?{|attr_next| 
-					dec_attr.include?(attr_next)
+	def proper_subset (partitionDA, partitionOther) 
+		return partitionOther.all?{|partO|
+			partitionDA.any?{|partDA|
+				partO.all?{|element|
+					partDA.include?(element)
 				}
-			}# checks to see if all things in chunks is in part_da
+			}# checks to see if all elements of each of other's partition is included in a partition of the DA
 		}
 	end
 	
