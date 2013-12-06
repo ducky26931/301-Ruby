@@ -44,7 +44,7 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 
 	
 	# Make all subsets that contain more than 1 attribute
-	for(int i = 2; i <= maxPartitionSize; i++){
+	for(int i = 2; i <= maxPartitionSize; i++)
 		newSets = nDAttributes.combination(i) # Find all sets of size i
 		newSets.each{|set| 
 			if(minimal(set)) # Make sure that the set is minimal
@@ -53,23 +53,33 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 				end
 			end
 		}
-	}
-}
+	end
+
 	# Coverings if done and complete at this point
 	# Begin creating rules from this
 	# Print rules and other things
-	def partition1 (attrs)
-		partition = Array.new(attrs.length)
-		for( int i = 0; i < rel.instances.length; i++ ){
-			partition[lookup(rel.instance[i][attrs])].add(i) # Find the value of the attribute for this instance and add it to the spot in partition
-		}
-		
-		
-		rel.instances.each{|inst|
-			partition[].add()
-		}
-		# instances.valueat
+	def partition (attrs)
+		case attrs.length
+			when 1
+				partition = Array.new(attributeValues[attrs[0]].length, Array.new)
+				for( int i = 0; i < rel.instances.length; i++ )
+					partition[lookup(rel.instance[i][attrs])].add(i) # Find the value of the attribute for this instance and add it to the spot in partition
+				end
+			when 2
+				partition = Array.new(attributeValues[attrs[0]].length, Array.new(attributeValues[attrs[1]].length, Array.new()))
+			when 3
+				
+			when 4
+				
+			when 5
+				
+			when 6
+				
+			when 7
+				
+		end
 	end
+
 
 	def lookup (value, attrNum)
 		return attributeValues[attrNum].index(value)
