@@ -27,9 +27,6 @@ def minimal (set_of_attr, coverings)
   }
 end
 
-# Coverings if done and complete at this point
-# Begin creating rules from this
-# Print rules and other things
 def partition (attrs, attribute_values)
   parts = Array.new
   case attrs.length
@@ -55,6 +52,7 @@ def partition (attrs, attribute_values)
           end
         }
       }
+  ### Repeat when 2 for all sizes up to max_subset_size
     else
 
   end
@@ -84,13 +82,13 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
   puts("Please enter the attribute number for the decision attributes")
 	### If they are in range then add them d_attributes
 	d_attributes = Array.new( [1, 2, 4])### The set of decision attribute indexes (ints)
-	### Max covering size
+	### Ask for max_covering_size
   max_partition_size = 7
-	### Min coverage for rules
-	attribute_values = Array.new### Make this# An array that holds the nominal values for each attribute in a subarray
+	### Ask for Min coverage for rules
+	attribute_values = Array.new ### Make this# An array that holds the nominal values for each attribute in a subarray
 	da_partition = partition(d_attributes, attribute_values) # The partition of the decision attributes
 	nd_attributes = attributes.remove(da_partition)# The set of non decision attribute indexes (ints)
-	coverings = Array.new # Array of a sets that cover the
+	coverings = Array.new # Array of a sets that make coverings
 	
 	# Check the partition of each non-decision attribute
 	nd_attributes.each {|attribute|
@@ -101,7 +99,6 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 		end
 	}
 
-	
 	# Make all subsets that contain more than 1 attribute
 	(2..max_partition_size).each do|i|
 		new_sets = nd_attributes.combination(i)
@@ -113,6 +110,9 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
       end
     }
   end
+  # Coverings if done and complete at this point
+  ### Begin creating rules from this
+  ### Print rules and other things
 
   # End of Program
 end
