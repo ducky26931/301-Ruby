@@ -49,7 +49,29 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 		coverings += newSets
 	end
 
-	# Coverings if done and complete at this point
+	def lookup (value, attrNum)
+		return attributeValues[attrNum].index(value)
+	end
+	
+	def proper_subset (partitionDA, partitionOther) 
+		return partitionOther.all?{|partO|
+			partitionDA.any?{|partDA|
+				partO.all?{|element|
+					partDA.include?(element)
+				}
+			}# checks to see if all elements of each of other's partition is included in a partition of the DA
+		}
+	end
+	
+	def minimal (setOfAttr)
+		return !coverings.any? {|cover|
+			setOfAttr.all?{|attr|
+				cover.include?(attr)
+			}
+		}
+	end
+
+		# Coverings if done and complete at this point
 	# Begin creating rules from this
 	# Print rules and other things
 	def partition (attrs)
@@ -88,29 +110,6 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 			when 7
 				
 		end
-	end
-
-
-	def lookup (value, attrNum)
-		return attributeValues[attrNum].index(value)
-	end
-	
-	def proper_subset (partitionDA, partitionOther) 
-		return partitionOther.all?{|partO|
-			partitionDA.any?{|partDA|
-				partO.all?{|element|
-					partDA.include?(element)
-				}
-			}# checks to see if all elements of each of other's partition is included in a partition of the DA
-		}
-	end
-	
-	def minimal (setOfAttr)
-		return !coverings.any? {|cover|
-			setOfAttr.all?{|attr|
-				cover.include?(attr)
-			}
-		}
 	end
 
 end
