@@ -87,9 +87,9 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 	# returns true if the first partition fits in the second
 	def proper_subset (part_da, chunks) #2 partitions that will be compared
 		return chunks.all?{|part|
-			part_da.any?{|part_da|part_da}}
-		#sub_partition part = Array.new
-		#included is true if the ith partition of part is comtained in part_da
+			part_da.any?{|part_da|part_da}} ########################### should this be part_da.any?{|subset| subset.include(part)}}
+		#sub_partition part = Array.new	##########################I don't think we need anything from this line down in this function
+		#included is true if the ith partition of part is contained in part_da
 		#if not included sub_partition part_da
 		#	return nil #Exit if not included
 	return t #true if the loop completed
