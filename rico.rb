@@ -1,28 +1,19 @@
 require 'rubygems'
-require 'backports/1.9.1/kernel/require_relative'
-require 'backports/1.9.1/enumerable/each_with_object'
-require 'backports/1.9.2/enumerable/flat_map'
+require 'backports'
 
 #require_relative 'FILENAMEHERE.rb'
 #that's what you use to include needed files
 require_relative 'rarff-hotpatch.rb'
 
 
-# Partition of size one
-class Array
-	def chunks(size)
-	#return array of arrays
-	end
-end
-
 if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm smart :P
-	if ARGV[0]
+	if ARGV[0] # If an argument is provided read the given file
 		arff_file = ARGV[0]
 		contents = File.open(arff_file).read
 
 		rel = Rarff::Relation.new
 		rel.parse(contents)
-	else
+	else # Otherwise exit and demand a filename
 		puts "Please specify a filename"
 		exit
 	end
@@ -31,22 +22,26 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 		puts attr
 	end
 	
-	attributes = (0...rel.attributes.length) # array of attribute indexes (ints)
-	attributeValues = # an array of arrays that hold the nominal values for each attribute
-	dAttributes = # array of decision attribute indexes (ints)
-	dAPartition = # array of shit
-	# Set dAPartition for 
-	nDAttributes = # array of non decision attribute indexes (ints)
-	coverings = # array of 
+	attributes = (0...rel.attributes.length) # The array of all attribute indexes, an array of ints
+	### Ask for decision attributes
+	### If they are in range then add them dAttributes
+	dAttributes = ### The set of decision attribute indexes (ints)
+	### Max covering size
+	### Min coverage for rules
+	attributeValues = ### Make this# An array that holds the nominal values for each attribute in a subarray
+	dAPartition = partition(dAttributes) # The partition of the decision attributes
+	nDAttributes = attributes.remove(dAPartition)# The set of non decision attribute indexes (ints)
+	coverings = Array.new() # Array of a sets that cover the 
 	
 	# Check the partition of each non-decision attribute
 	nDAttributes.each {|attribute|
-		if (properSubset( dAPartition, partition(attribute) ))
+		if(properSubset(dAPartition, partition(attribute)))
 			set = Array.new(attibute)
 			coverings.add(set) # add the list containing the attribute to coverings
 			nDAttributes.remove(attribute) # remove the attribute from nDAttribute
 		end
 	}
+
 	
 	# Make all subsets that contain more than 1 attribute
 	for(int i = 2; i <= maxPartitionSize; i++){
@@ -59,19 +54,17 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 			end
 		}
 	}
-
+}
 	# Coverings if done and complete at this point
 	# Begin creating rules from this
 	# Print rules and other things
-
-	def partition (attrs)
-		# Make a attrs.length dimension array of arrays to hold the datatable of entries
-		# instances.valueat
-	end
-
 	def partition1 (attrs)
 		partition = Array.new(attrs.length)
-		for( int i = 0; i < # I should probably finish this at some points
+		for( int i = 0; i < rel.instances.length; i++ ){
+			partition[lookup(rel.instance[i][attrs])].add(i) # Find the value of the attribute for this instance and add it to the spot in partition
+		}
+		
+		
 		rel.instances.each{|inst|
 			partition[].add()
 		}
