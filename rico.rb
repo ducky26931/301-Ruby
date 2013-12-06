@@ -26,10 +26,7 @@ require_relative 'rarff-hotpatch.rb'
 					# add subset to coverings
 
 
-# Partitioning Algorithms
-#	Takes a list of attribute numbers
-#	Returns a list of partitions
-#	uses *table* and *Attributes-Values*
+
 
 # Partition of size one
 class Array
@@ -69,18 +66,23 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 	# => => If non empty the partion will be returned and appended to 'partitions'
 	# => return the partions
 
+
+
 # is a partition-a a proper subset of partition-b
 	# takes two partitions
 	# calls included
 	# returns true if the first partition fits in the second
 	def proper_subset (part_da, chunks) #2 partitions that will be compared
 		return chunks.all?{|part|
-			part_da.any?{|part_da|part_da}}
+			part_da.any?{|part_da|
+				part_da}}
+
 		#sub_partition part = Array.new
 		#included is true if the ith partition of part is comtained in part_da
 		#if not included sub_partition part_da
 		#	return nil #Exit if not included
-	return t #true if the loop completed
+	#return t #true if the loop completed
+
 
 	#Partition included?
 		# called from subset
