@@ -79,8 +79,11 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 		case attrs.length
 			when 1
 				partition = Array.new(attributeValues[attrs[0]].length, Array.new)
-				for( int i = 0; i < rel.instances.length; i++ )
+				#for( int i = 0; i < rel.instances.length; i++ )
+				#	partition[lookup(rel.instance[i][attrs[0]])].add(i) # Find the value of the attribute for this instance and add it to the spot in partition
+				(0...rel.instances.length).each do|i|
 					partition[lookup(rel.instance[i][attrs[0]])].add(i) # Find the value of the attribute for this instance and add it to the spot in partition
+
 				end
 				partition.each{|part|
 					#if( !part.empty? )
