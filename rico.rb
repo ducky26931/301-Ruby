@@ -25,9 +25,6 @@ require_relative 'rarff-hotpatch.rb'
 				# If this subset is a proper subset of daPart
 					# add subset to coverings
 
-
-<<<<<<< HEAD
-=======
 # Partitioning Algorithms
 #	Takes a list of attribute numbers attrs
 #	Returns a list of lists such that each sublist is a partition of the attributes
@@ -35,12 +32,6 @@ require_relative 'rarff-hotpatch.rb'
 
 # Let n = size(attrs)
 # Make n
-
-
-
-
-
->>>>>>> 53401146e7f2e60bf851910edf86cf965405106a
 
 
 # Partition of size one
@@ -92,8 +83,9 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 	# returns true if the first partition fits in the second
 	def proper_subset (part_da, chunks) #2 partitions that will be compared
 		return chunks.all?{|part|
-			part_da.any?{|part_da|
-				part_da}}
+			part_da.any?{|dec_attr|
+			part.all?{|attr_next|
+			}
 
 		#sub_partition part = Array.new
 		#included is true if the ith partition of part is comtained in part_da
