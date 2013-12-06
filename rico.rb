@@ -77,6 +77,7 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 
 	def proper_subset (part_da, chunks) 
 		return chunks.all?{|part|
+<<<<<<< HEAD
 
 	  		part_da.any?{|dec_attr|
 				part.all?{|attr_next| 
@@ -86,6 +87,12 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 		}
 	end
 	
+=======
+	  		part_da.any?{|dec_attr|
+			part.all?{|attr_next| dec_attr.include?(attr_next)
+			}# checks to see if all things in chunks is in part_da
+
+>>>>>>> 45a7e761b3065b8f2b1f916e2a4569a7f3a05541
 		#sub_partition part = Array.new
 		#included is true if the ith partition of part is comtained in part_da
 
