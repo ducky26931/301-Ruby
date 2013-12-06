@@ -78,13 +78,15 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 	end
 	
 	attributes = (0...rel.attributes.length) # The array of all attribute indexes, an array of ints
+	puts("Succesfully loaded the ")
 	### Ask for decision attributes
+  puts("Please enter the attribute number for the decision attributes")
 	### If they are in range then add them d_attributes
 	d_attributes = Array.new( [1, 2, 4])### The set of decision attribute indexes (ints)
 	### Max covering size
   max_partition_size = 7
 	### Min coverage for rules
-	attribute_values = Array.new([[0, 1, 2]['a', 'v', 'd'][0, 1]])### Make this# An array that holds the nominal values for each attribute in a subarray
+	attribute_values = Array.new()### Make this# An array that holds the nominal values for each attribute in a subarray
 	da_partition = partition(d_attributes, attribute_values) # The partition of the decision attributes
 	nd_attributes = attributes.remove(da_partition)# The set of non decision attribute indexes (ints)
 	coverings = Array.new # Array of a sets that cover the
