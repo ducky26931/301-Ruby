@@ -44,14 +44,9 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 
 	
 	# Make all subsets that contain more than 1 attribute
-	for(int i = 2; i <= maxPartitionSize; i++)
-		newSets = nDAttributes.combination(i) # Find all sets of size i
-		newSets.each{|set| 
-			if(minimal(set)) # Make sure that the set is minimal
-				if(properSubset(dAPartition, set)) # Make sure that the set is a proper subset
-					coverings.add(set) # Add the set to coverings
-				end
-			end
+	(2..maxPartitionSize).each do|i|
+		newSets = nDattributes.combination(i)
+		coverings += newSets
 	end
 
 	# Coverings if done and complete at this point
