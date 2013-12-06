@@ -59,14 +59,30 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 	# Begin creating rules from this
 	# Print rules and other things
 	def partition (attrs)
+		parts = Array.new
 		case attrs.length
 			when 1
 				partition = Array.new(attributeValues[attrs[0]].length, Array.new)
 				for( int i = 0; i < rel.instances.length; i++ )
-					partition[lookup(rel.instance[i][attrs])].add(i) # Find the value of the attribute for this instance and add it to the spot in partition
+					partition[lookup(rel.instance[i][attrs[0]])].add(i) # Find the value of the attribute for this instance and add it to the spot in partition
 				end
+				partition.each{|part|
+					if( !part.empty? )
+						attrs.add(part)
+					end
+				}
 			when 2
 				partition = Array.new(attributeValues[attrs[0]].length, Array.new(attributeValues[attrs[1]].length, Array.new()))
+				for( int i = 0; i < rel.instances.length; i++ )
+					partition[lookup(rel.instance[i][attrs[0]])][lookup(rel.instance[i][attrs[1]])].add(i) # Find the value of the attribute for this instance and add it to the spot in partition
+				end
+				partition.each{|part0|
+					part0.each {|part1|
+						if( !part1.empty? )
+							attrs.add(part1)
+						end
+					}
+				}
 			when 3
 				
 			when 4
