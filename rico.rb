@@ -8,26 +8,12 @@ require 'backports/1.9.2/enumerable/flat_map'
 require_relative 'rarff-hotpatch.rb'
 
 
-# Partitioning Algorithms
-#	Takes a list of attribute numbers attrs
-#	Returns a list of lists such that each sublist is a partition of the attributes
-#	Uses the data table (dataTable) and the array that holds the attribute values (attrVals)
-
-# Let n = size(attrs)
-# Make n
-
-
 # Partition of size one
 class Array
 	def chunks(size)
 	#return array of arrays
 	end
 end
-
-# partition1_attribute([1,2,3])
-
-
-
 
 if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm smart :P
 	if ARGV[0]
@@ -46,6 +32,7 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 	end
 	
 	attributes = (0...rel.attributes.length) # array of attribute indexes (ints)
+	attributeValues = # an array of arrays that hold the nominal values for each attribute
 	dAttributes = # array of decision attribute indexes (ints)
 	dAPartition = # array of shit
 	# Set dAPartition for 
@@ -55,10 +42,9 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 	# Check the partition of each non-decision attribute
 	nDAttributes.each {|attribute|
 		if (properSubset( dAPartition, partition(attribute) ))
-		{
 			# add a list containing only the attribute to coverings
 			#remove attribute from nDAttributes
-		}
+		end
 	}
 	
 	# Make all subsets of 1 attribute
@@ -81,22 +67,26 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 
 	# Coverings if done and complete at this point
 	# Begin creating rules from this
-	
-	
-	
-	
-	
-	# need to now add empty array onto arrays
-	things = Array.new # => []
-	chunks.each {|chunk| chunk.push(things)}
-	p chunks
-	# now TO-DO
-	# => Add item to correct spot in parts
-	# => Make the final array to be returned
-	# => for each element of chunks
-	# => => If non empty the partion will be returned and appended to 'partitions'
-	# => return the partions
+	# Print rules and other things
 
+	def partition (attrs)
+		# Make a attrs.length dimension array of arrays to hold the datatable of entries
+		# instances.valueat
+	end
+
+	def partition1 (attrs)
+		partition = Array.new(attrs.length)
+		for( int i = 0; i < 
+		rel.instances.each{|inst|
+			partition[].add()
+		}
+		# instances.valueat
+	end
+
+	def lookup (value, attrNum)
+		return attributeValues[attrNum].index(value)
+	end
+	
 	def proper_subset (partitionDA, partitionOther) 
 		return partitionOther.all?{|partO|
 			partitionDA.any?{|partDA|
