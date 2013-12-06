@@ -84,7 +84,7 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 	### Max covering size
   max_partition_size = 7
 	### Min coverage for rules
-	attribute_values = Array.new([[0, 1, 2][a, v, d][0, 1]])### Make this# An array that holds the nominal values for each attribute in a subarray
+	attribute_values = Array.new([[0, 1, 2]['a', 'v', 'd'][0, 1]])### Make this# An array that holds the nominal values for each attribute in a subarray
 	da_partition = partition(d_attributes, attribute_values) # The partition of the decision attributes
 	nd_attributes = attributes.remove(da_partition)# The set of non decision attribute indexes (ints)
 	coverings = Array.new # Array of a sets that cover the
