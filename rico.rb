@@ -7,11 +7,29 @@ require 'backports/1.9.2/enumerable/flat_map'
 #that's what you use to include needed files
 require_relative 'rarff-hotpatch.rb'
 
+# Make all subsets of 1 attribute
+# 	Takes a list of non decision attributes (a list of integers) and the list of coverings (a list of list of integers)
+#	For each non-decision attribute find it's partition
+#	Check if it's partition is a proper covering of the decision attribute (check if proper subset, it is already minimal)
+#		If it is add a list containing the single element to the list coverings
+#		Also remove it from the non-decision attributes list.
+
+# Make all subsets that contain more than 1 attribute
+# For n = 2 -> maxNumAttrInACovering
+	# Make a list of all combinations of size n and call this possible_subsets
+	# For each subset in possible_subsets
+		# For each part in coverings
+			# If any part is contained in subset
+				# Skip out of loop to next subset in possible_subsets, this set of attributes is not minimal
+			# Else
+				# If this subset is a proper subset of daPart
+					# add subset to coverings
+
+
 # Partitioning Algorithms
 #	Takes a list of attribute numbers
 #	Returns a list of partitions
 #	uses *table* and *Attributes-Values*
-
 
 # Partition of size one
 class Array
@@ -20,7 +38,6 @@ class Array
 	end
 end
 
- 
 # partition1_attribute([1,2,3])
 
 if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm smart :P
