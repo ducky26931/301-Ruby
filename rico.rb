@@ -107,18 +107,13 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 		}
 	end
 	
-		#sub_partition part = Array.new
-		#included is true if the ith partition of part is comtained in part_da
-
-		#if not included sub_partition part_da
-		#	return nil #Exit if not included
-	#return t #true if the loop completed
-
-
-	#Partition included?
-		# called from subset
-		# takes an element of partition and a full partition
-		# returns true if element is found in partion
+	def minimal (setOfAttr, coverings)
+		return !coverings.any? {|cover|
+			setOfAttr.all?{|attr|
+				cover.include?(attr)
+			}
+		}
+	end
 
 end
 
