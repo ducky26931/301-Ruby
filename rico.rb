@@ -36,8 +36,7 @@ def partition (attrs, attribute_values)
     when 1
       part = Array.new(attribute_values[attrs[0]].length, Array.new)
       (0...rel.instances.length).each do|i|
-        part[lookup(rel.instance[i][attrs[0]])].add(i) # Find the value of the attribute for this instance and add it to the spot in partition
-
+        part[lookup(rel.instance[i][attrs[0]], attrs[0], attribute_values)].push(i) # Find the value of the attribute for this instance and add it to the spot in partition
       end
       partition.each{|part|
         unless part.empty?
@@ -45,9 +44,9 @@ def partition (attrs, attribute_values)
         end
       }
     when 2
-      part = Array.new(attribute_values[attrs[0]].length, Array.new(attributeValues[attrs[1]].length, Array.new()))
+      part = Array.new(attribute_values[attrs[0]].length, Array.new(attribute_values[attrs[1]].length, Array.new()))
       (0...rel.instance.length).each do |i|
-        part[lookup(rel.instance[i][attrs[0]])][lookup(rel.instance[i][attrs[1]])].add(i) # Find the value of the attribute for this instance and add it to the spot in partition
+        part[lookup(rel.instance[i][attrs[0]], attrs[0], attribute_values)][lookup(rel.instance[i][attrs[1]], attrs[1], attribute_values)].push(i) # Find the value of the attribute for this instance and add it to the spot in partition
       end
       part.each{|part0|
         part0.each {|part1|
@@ -59,6 +58,7 @@ def partition (attrs, attribute_values)
     else
 
   end
+  return parts
 end
 
 if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm smart :P
@@ -78,7 +78,8 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 	end
 	
 	attributes = (0...rel.attributes.length) # The array of all attribute indexes, an array of ints
-	puts("Succesfully loaded the ")
+	puts("Succesfully loaded the given dataset")
+  puts("Please enter the number of decision attributes used in this project")
 	### Ask for decision attributes
   puts("Please enter the attribute number for the decision attributes")
 	### If they are in range then add them d_attributes
@@ -86,7 +87,7 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 	### Max covering size
   max_partition_size = 7
 	### Min coverage for rules
-	attribute_values = Array.new()### Make this# An array that holds the nominal values for each attribute in a subarray
+	attribute_values = Array.new### Make this# An array that holds the nominal values for each attribute in a subarray
 	da_partition = partition(d_attributes, attribute_values) # The partition of the decision attributes
 	nd_attributes = attributes.remove(da_partition)# The set of non decision attribute indexes (ints)
 	coverings = Array.new # Array of a sets that cover the
@@ -95,7 +96,7 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 	nd_attributes.each {|attribute|
 		if proper_subset(da_partition, partition(attribute, attribute_values))
 			set = Array.new(attribute)
-			coverings.add(set) # add the list containing the attribute to coverings
+			coverings.push(set) # add the list containing the attribute to coverings
 			nd_attributes.remove(attribute) # remove the attribute from nDAttribute
 		end
 	}
@@ -104,10 +105,15 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 	# Make all subsets that contain more than 1 attribute
 	(2..max_partition_size).each do|i|
 		new_sets = nd_attributes.combination(i)
-		coverings += new_sets
-	end
+    new_sets.each{|set|
+      if minimal(set, attribute_values)
+        if proper_subset(attribute_values, partition(set, attribute_values))
+          coverings.push(set)
+        end
+      end
+    }
+  end
 
-
-
+  # End of Program
 end
 
