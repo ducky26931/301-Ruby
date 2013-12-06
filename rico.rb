@@ -42,28 +42,23 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 	# Check the partition of each non-decision attribute
 	nDAttributes.each {|attribute|
 		if (properSubset( dAPartition, partition(attribute) ))
-			# add a list containing only the attribute to coverings
-			#remove attribute from nDAttributes
+			set = Array.new(attibute)
+			coverings.add(set) # add the list containing the attribute to coverings
+			nDAttributes.remove(attribute) # remove the attribute from nDAttribute
 		end
 	}
 	
-	# Make all subsets of 1 attribute
-# 	Takes a list of non decision attributes (a list of integers) and the list of coverings (a list of list of integers)
-#	For each non-decision attribute find it's partition
-#	Check if it's partition is a proper covering of the decision attribute (check if proper subset, it is already minimal)
-#		If it is add a list containing the single element to the list coverings
-#		Also remove it from the non-decision attributes list.
-
-# Make all subsets that contain more than 1 attribute
-# For n = 2 -> maxNumAttrInACovering
-	# Make a list of all combinations of size n and call this possible_subsets
-	# For each subset in possible_subsets
-		# For each part in coverings
-			# If any part is contained in subset
-				# Skip out of loop to next subset in possible_subsets, this set of attributes is not minimal
-			# Else
-				# If this subset is a proper subset of daPart
-					# add subset to coverings
+	# Make all subsets that contain more than 1 attribute
+	for(int i = 2; i <= maxPartitionSize; i++){
+		newSets = nDAttributes.combination(i) # Find all sets of size i
+		newSets.each{|set| 
+			if(minimal(set)) # Make sure that the set is minimal
+				if(properSubset(dAPartition, set)) # Make sure that the set is a proper subset
+					coverings.add(set) # Add the set to coverings
+				end
+			end
+		}
+	}
 
 	# Coverings if done and complete at this point
 	# Begin creating rules from this
@@ -76,7 +71,7 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 
 	def partition1 (attrs)
 		partition = Array.new(attrs.length)
-		for( int i = 0; i < 
+		for( int i = 0; i < # I should probably finish this at some points
 		rel.instances.each{|inst|
 			partition[].add()
 		}
@@ -97,7 +92,7 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 		}
 	end
 	
-	def minimal (setOfAttr, coverings)
+	def minimal (setOfAttr)
 		return !coverings.any? {|cover|
 			setOfAttr.all?{|attr|
 				cover.include?(attr)
