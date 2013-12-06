@@ -30,35 +30,29 @@ end
 # Coverings if done and complete at this point
 # Begin creating rules from this
 # Print rules and other things
-def partition (attrs)
+def partition (attrs, attribute_values)
   parts = Array.new
   case attrs.length
     when 1
-      partition = Array.new(attributeValues[attrs[0]].length, Array.new)
-      #for( int i = 0; i < rel.instances.length; i++ )
-      #	partition[lookup(rel.instance[i][attrs[0]])].add(i) # Find the value of the attribute for this instance and add it to the spot in partition
+      partition = Array.new(attribute_values[attrs[0]].length, Array.new)
       (0...rel.instances.length).each do|i|
         partition[lookup(rel.instance[i][attrs[0]])].add(i) # Find the value of the attribute for this instance and add it to the spot in partition
 
       end
       partition.each{|part|
-        #if( !part.empty? )
         unless part.empty?
-          attrs.add(part)
+          parts.add(part)
         end
       }
     when 2
-      partition = Array.new(attributeValues[attrs[0]].length, Array.new(attributeValues[attrs[1]].length, Array.new()))
-      #for( int i = 0; i < rel.instances.length; i++ )
-      #	partition[lookup(rel.instance[i][attrs[0]])][lookup(rel.instance[i][attrs[1]])].add(i) # Find the value of the attribute for this instance and add it to the spot in partition
+      partition = Array.new(attribute_values[attrs[0]].length, Array.new(attributeValues[attrs[1]].length, Array.new()))
       (0...rel.instance.length).each do |i|
         partition[lookup(rel.instance[i][attrs[0]])][lookup(rel.instance[i][attrs[1]])].add(i) # Find the value of the attribute for this instance and add it to the spot in partition
       end
       partition.each{|part0|
         part0.each {|part1|
-          #if( !part1.empty? )
           unless part1.empty?
-            attrs.add(part1)
+            parts.add(part1)
           end
         }
       }
@@ -88,15 +82,16 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 	### If they are in range then add them d_attributes
 	d_attributes = ### The set of decision attribute indexes (ints)
 	### Max covering size
+  max_partition_size = 7
 	### Min coverage for rules
 	attribute_values = ### Make this# An array that holds the nominal values for each attribute in a subarray
-	da_partition = partition(d_attributes) # The partition of the decision attributes
+	da_partition = partition(d_attributes, attribute_values) # The partition of the decision attributes
 	nd_attributes = attributes.remove(da_partition)# The set of non decision attribute indexes (ints)
 	coverings = Array.new # Array of a sets that cover the
 	
 	# Check the partition of each non-decision attribute
 	nd_attributes.each {|attribute|
-		if proper_subset(da_partition, partition(attribute))
+		if proper_subset(da_partition, partition(attribute, attribute_values))
 			set = Array.new(attribute)
 			coverings.add(set) # add the list containing the attribute to coverings
 			nd_attributes.remove(attribute) # remove the attribute from nDAttribute
