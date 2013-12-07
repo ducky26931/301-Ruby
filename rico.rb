@@ -96,13 +96,15 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 	coverings = Array.new # Array of a sets that make coverings, it starts empty.
 
 	# Check the partition of each non-decision attribute
-	nd_attributes.each {|attribute|
+	single_coverings = Array.new
+  nd_attributes.each {|attribute|
 		set = Array.new(attribute)
 		if proper_subset(da_partition, partition(set, attribute_values))
 			coverings.push(set) # add the list containing the attribute to coverings
-			nd_attributes.remove(attribute) # remove the attribute from nDAttribute
+      single_coverings.push(attribute) # remove the attribute from nDAttribute
 		end
 	}
+  nd_attributes -= single_coverings
 
 	# Make all subsets that contain more than 1 attribute
 	(2..max_partition_size).each do|i|
