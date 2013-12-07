@@ -85,7 +85,7 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 	### Ask for max_covering_size
 	max_partition_size = 7
 	### Ask for Min coverage for rules
-	attribute_values = Array.new ### Make this# An array that holds the nominal values for each attribute in a subarray
+	attribute_values = Array.new(rel.attributes.length, Array.new) ### Make this# An array that holds the nominal values for each attribute in a subarray
 	da_partition = partition(d_attributes, attribute_values) # The partition of the decision attributes
 	nd_attributes = (0...rel.attributes.length).map{|idx| ### I think that this should just be a list, not a map
 		idx if d_attributes.include?(idx)
