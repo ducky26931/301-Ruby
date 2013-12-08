@@ -68,7 +68,11 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 		rel.parse(contents)
 	else # Otherwise exit and demand a filename
 		puts "Please specify a filename"
-		exit
+		file_name = $stdin.gets.chomp!
+		contents = File.open(file_name).read
+
+		rel = Rarff::Relation.new
+		rel.parse(contents)
 	end
 
 	rel.attributes.each do |attr|
@@ -78,8 +82,10 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 	attributes = (0...rel.attributes.length) # The array of all attribute indexes, an array of ints
 	puts("Succesfully loaded the given dataset")
 	puts("Please enter the number of decision attributes used in this project")
+	num_da_used = $stdin.gets.chomp!
 	### Ask for decision attributes
 	puts("Please enter the attribute number for the decision attributes")
+	 attr_num_da= $stdin.gets.chomp!
 	### If they are in range then add them d_attributes
 	d_attributes = Array.new( [1, 2, 4])### The set of decision attribute indexes (ints)
 	### Ask for max_covering_size
