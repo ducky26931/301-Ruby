@@ -87,7 +87,7 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 	### Ask for Min coverage for rules
 	attribute_values = Array.new(rel.attributes.length, Array.new) ### Make this# An array that holds the nominal values for each attribute in a subarray
   (0...rel.attributes.length).each do |i|
-    rel.instance.each{|inst|
+    rel.instances.each{|inst|
       attribute_values[i].push(inst[i])
     }
     attribute_values[i] = attribute_values[i].uniq # Removes all duplicate values
@@ -127,5 +127,5 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 	# Coverings if done and complete at this point
 	### Begin creating rules from this
 	### Print rules and other things
-
+end
 	# End of Program
