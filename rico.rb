@@ -27,28 +27,28 @@ def minimal (set_of_attr, coverings)
 	}
 end
 
-def partition (attrs, attribute_values)
+def partition (rel, attrs, attribute_values)
 	parts = Array.new
 	case attrs.length
 	when 1
 		part = Array.new(attribute_values[attrs[0]].length, Array.new)
 		(0...rel.instances.length).each do|i|
-			part[lookup(rel.instance[i][attrs[0]], attrs[0], attribute_values)].push(i) # Find the value of the attribute for this instance and add it to the spot in partition
+			part[lookup(rel.instances[i][attrs[0]], attrs[0], attribute_values)].push(i) # Find the value of the attribute for this instance and add it to the spot in partition
 		end
 		part.each{|party|
 			unless party.empty?
-				parts.add(party)
+				parts.push(party)
 			end
 		}
 	when 2
 		part = Array.new(attribute_values[attrs[0]].length, Array.new(attribute_values[attrs[1]].length, Array.new))
-		(0...rel.instance.length).each do |i|
-			part[lookup(rel.instance[i][attrs[0]], attrs[0], attribute_values)][lookup(rel.instance[i][attrs[1]], attrs[1], attribute_values)].push(i) # Find the value of the attribute for this instance and add it to the spot in partition
+		(0...rel.instances.length).each do |i|
+			part[lookup(rel.instances[i][attrs[0]], attrs[0], attribute_values)][lookup(rel.instances[i][attrs[1]], attrs[1], attribute_values)].push(i) # Find the value of the attribute for this instance and add it to the spot in partition
 		end
 		part.each{|part0|
 			part0.each {|part1|
 				unless part1.empty?
-					parts.add(part1)
+					parts.push(part1)
 				end
 			}
 		}
@@ -93,7 +93,7 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
     attribute_values[i] = attribute_values[i].uniq # Removes all duplicate values
    end
 
-	da_partition = partition(d_attributes, attribute_values) # The partition of the decision attributes
+	da_partition = partition(rel, d_attributes, attribute_values) # The partition of the decision attributes
 	nd_attributes = (0...rel.attributes.length).map{|idx| ### I think that this should just be a list, not a map
 		idx if d_attributes.include?(idx)
 		(idx)}.compact
@@ -105,8 +105,8 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 	# Check the partition of each non-decision attribute
 	single_coverings = Array.new
   nd_attributes.each {|attribute|
-		set = Array.new(attribute)
-		if proper_subset(da_partition, partition(set, attribute_values))
+		set = [attribute]
+		if proper_subset(da_partition, partition(rel, set, attribute_values))
 			coverings.push(set) # add the list containing the attribute to coverings
       single_coverings.push(attribute) # remove the attribute from nDAttribute
 		end
@@ -118,7 +118,7 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 		new_sets = nd_attributes.combination(i)
 		new_sets.each{|set|
 			if minimal(set, coverings)
-				if proper_subset(da_partition, partition(set, attribute_values))
+				if proper_subset(da_partition, partition(rel, set, attribute_values))
 					coverings.push(set)
 				end
 			end
