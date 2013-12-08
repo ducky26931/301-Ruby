@@ -31,7 +31,8 @@ def partition (rel, attrs, attribute_values)
 	parts = Array.new
 	case attrs.length
 	when 1
-		part = Array.new(attribute_values[attrs[0]].length, Array.new)
+		part = Array.new(attribute_values[attrs[0]].length, 
+				Array.new)
 		(0...rel.instances.length).each do|i|
 			part[lookup(rel.instances[i][attrs[0]], attrs[0], attribute_values)].push(i) # Find the value of the attribute for this instance and add it to the spot in partition
 		end
@@ -41,9 +42,11 @@ def partition (rel, attrs, attribute_values)
 			end
 		}
 	when 2
-		part = Array.new(attribute_values[attrs[0]].length, Array.new(attribute_values[attrs[1]].length, Array.new))
+		part = Array.new(attribute_values[attrs[0]].length, 
+				Array.new(attribute_values[attrs[1]].length, Array.new))
 		(0...rel.instances.length).each do |i|
-			part[lookup(rel.instances[i][attrs[0]], attrs[0], attribute_values)][lookup(rel.instances[i][attrs[1]], attrs[1], attribute_values)].push(i) # Find the value of the attribute for this instance and add it to the spot in partition
+			part[lookup(rel.instances[i][attrs[0]], attrs[0], attribute_values)]
+				[lookup(rel.instances[i][attrs[1]], attrs[1], attribute_values)].push(i) # Find the value of the attribute for this instance and add it to the spot in partition
 		end
 		part.each{|part0|
 			part0.each {|part1|
@@ -52,8 +55,140 @@ def partition (rel, attrs, attribute_values)
 				end
 			}
 		}
-		### Repeat when 2 for all sizes up to max_subset_size
+	when 3
+		part = Array.new(attribute_values[attrs[0]].length, 
+				Array.new(attribute_values[attrs[1]].length, 
+				Array.new(attribute_values[attrs[2]].length, Array.new)))
+		(0...rel.instances.length).each do |i|
+			part[lookup(rel.instances[i][attrs[0]], attrs[0], attribute_values)]
+				[lookup(rel.instances[i][attrs[1]], attrs[1], attribute_values)]
+				[lookup(rel.instances[i][attrs[2]], attrs[2], attribute_values)].push(i) # Find the value of the attribute for this instance and add it to the spot in partition
+		end
+		part.each{|part0|
+			part0.each {|part1|
+				part1.each{|part2|
+					unless part2.empty?
+						parts.push(part2)
+					end
+				}
+			}
+		}
+	when 4
+		part = Array.new(attribute_values[attrs[0]].length, 
+				Array.new(attribute_values[attrs[1]].length, 
+				Array.new(attribute_values[attrs[2]].length, 
+				Array.new(attribute_values[attrs[3]].length, Array.new))))
+		(0...rel.instances.length).each do |i|
+			part[lookup(rel.instances[i][attrs[0]], attrs[0], attribute_values)]
+				[lookup(rel.instances[i][attrs[1]], attrs[1], attribute_values)]
+				[lookup(rel.instances[i][attrs[2]], attrs[2], attribute_values)]
+				[lookup(rel.instances[i][attrs[3]], attrs[3], attribute_values)].push(i) # Find the value of the attribute for this instance and add it to the spot in partition
+		end
+		part.each{|part0|
+			part0.each {|part1|
+				part1.each{|part2|
+					part2.each{|part3|
+						unless part3.empty?
+							parts.push(part3)
+						end
+					}
+				}
+			}
+		}
+	when 5
+		part = Array.new(attribute_values[attrs[0]].length, 
+				Array.new(attribute_values[attrs[1]].length, 
+				Array.new(attribute_values[attrs[2]].length, 
+				Array.new(attribute_values[attrs[3]].length, 
+				Array.new(attribute_values[attrs[4]].length, 
+				Array.new)))))
+		(0...rel.instances.length).each do |i|
+			part[lookup(rel.instances[i][attrs[0]], attrs[0], attribute_values)]
+				[lookup(rel.instances[i][attrs[1]], attrs[1], attribute_values)]
+				[lookup(rel.instances[i][attrs[2]], attrs[2], attribute_values)]
+				[lookup(rel.instances[i][attrs[3]], attrs[3], attribute_values)]
+				[lookup(rel.instances[i][attrs[4]], attrs[4], attribute_values)].push(i) # Find the value of the attribute for this instance and add it to the spot in partition
+		end
+		part.each{|part0|
+			part0.each {|part1|
+				part1.each{|part2|
+					part2.each{|part3|
+						part3.each{|part4|
+							unless part4.empty?
+								parts.push(part4)
+							end
+						}
+					}
+				}
+			}
+		}
+	when 6
+		part = Array.new(attribute_values[attrs[0]].length, 
+				Array.new(attribute_values[attrs[1]].length, 
+				Array.new(attribute_values[attrs[2]].length, 
+				Array.new(attribute_values[attrs[3]].length, 
+				Array.new(attribute_values[attrs[4]].length, 
+				Array.new(attribute_values[attrs[5]].length, 
+				Array.new))))))
+		(0...rel.instances.length).each do |i|
+			part[lookup(rel.instances[i][attrs[0]], attrs[0], attribute_values)]
+				[lookup(rel.instances[i][attrs[1]], attrs[1], attribute_values)]
+				[lookup(rel.instances[i][attrs[2]], attrs[2], attribute_values)]
+				[lookup(rel.instances[i][attrs[3]], attrs[3], attribute_values)]
+				[lookup(rel.instances[i][attrs[4]], attrs[4], attribute_values)]
+				[lookup(rel.instances[i][attrs[5]], attrs[5], attribute_values)].push(i) # Find the value of the attribute for this instance and add it to the spot in partition
+		end
+		part.each{|part0|
+			part0.each {|part1|
+				part1.each{|part2|
+					part2.each{|part3|
+						part3.each{|part4|
+							part4.each{|part5|
+								unless part5.empty?
+									parts.push(part5)
+								end
+							}
+						}
+					}
+				}
+			}
+		}
 	else
+		part = Array.new(attribute_values[attrs[0]].length, 
+				Array.new(attribute_values[attrs[1]].length, 
+				Array.new(attribute_values[attrs[2]].length, 
+				Array.new(attribute_values[attrs[3]].length, 
+				Array.new(attribute_values[attrs[4]].length, 
+				Array.new(attribute_values[attrs[5]].length, 
+				Array.new(attribute_values[attrs[6]].length, 
+				Array.new)))))))
+		(0...rel.instances.length).each do |i|
+			part[lookup(rel.instances[i][attrs[0]], attrs[0], attribute_values)]
+				[lookup(rel.instances[i][attrs[1]], attrs[1], attribute_values)]
+				[lookup(rel.instances[i][attrs[2]], attrs[2], attribute_values)]
+				[lookup(rel.instances[i][attrs[3]], attrs[3], attribute_values)]
+				[lookup(rel.instances[i][attrs[4]], attrs[4], attribute_values)]
+				[lookup(rel.instances[i][attrs[5]], attrs[5], attribute_values)]
+				[lookup(rel.instances[i][attrs[6]], attrs[6], attribute_values)].push(i) # Find the value of the attribute for this instance and add it to the spot in partition
+		end
+		part.each{|part0|
+			part0.each {|part1|
+				part1.each{|part2|
+					part2.each{|part3|
+						part3.each{|part4|
+							part4.each{|part5|
+								part5.each{|part6|
+									unless part6.empty?
+										parts.push(part6)
+									end
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+		### Repeat when 2 for all sizes up to max_subset_size (7)
 
 	end
 	return parts ### DON"T KNOW IF REDUNDANT
