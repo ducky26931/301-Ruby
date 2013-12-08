@@ -92,7 +92,7 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
     }
     attribute_values[i] = attribute_values[i].uniq # Removes all duplicate values
    end
-end
+
 	da_partition = partition(d_attributes, attribute_values) # The partition of the decision attributes
 	nd_attributes = (0...rel.attributes.length).map{|idx| ### I think that this should just be a list, not a map
 		idx if d_attributes.include?(idx)
@@ -129,4 +129,3 @@ end
 	### Print rules and other things
 
 	# End of Program
-end
