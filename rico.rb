@@ -81,15 +81,22 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 
 	attributes = (0...rel.attributes.length) # The array of all attribute indexes, an array of ints
 	puts("Succesfully loaded the given dataset")
-	puts("Please enter the number of decision attributes used in this project")
-	num_da_used = $stdin.gets.chomp!
+	puts("Please enter the indexes of the decisio attributes you would like to use hit enter after every attribute and  type 'done' when list is complete")
+	attr_num_da = Array.new
+	input = $stdin.gets.chomp!
+	while input != 'done'
+		attr_num_da << input.to_i
+		input = $stdin.gets.chomp!
+	end
 	### Ask for decision attributes
 	puts("Please enter the attribute number for the decision attributes")
-	 attr_num_da= $stdin.gets.chomp!
+	# 
+	 max_partition_size = $stdin.gets.chomp!.to_i
 	### If they are in range then add them d_attributes
-	d_attributes = Array.new( [1, 2, 4])### The set of decision attribute indexes (ints)
+	d_attributes = attr_num_da### The set of decision attribute indexes (ints)
+	
 	### Ask for max_covering_size
-	max_partition_size = 7
+	
 	### Ask for Min coverage for rules
 	attribute_values = Array.new(rel.attributes.length, Array.new) ### Make this# An array that holds the nominal values for each attribute in a subarray
   (0...rel.attributes.length).each do |i|
