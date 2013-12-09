@@ -239,13 +239,18 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 	puts 'Print out the list of decision attributes.'
   p d_attributes #######################################################################################################
 	attribute_values = Array.new(rel.attributes.length, Array.new) ### Make this# An array that holds the nominal values for each attribute in a subarray
+  attribute_values.each{|attr| p attr}
 
   rel.instances.each {|inst|
     puts "Taking values from instance #{inst}"
     (0...rel.attributes.length).each {|attr|
       attribute_values[attr].push(inst[attr])
       puts "Adding value #{inst[attr]} to attribute #{attr} in attribute value table"
+  attribute_values.each{|attr| p attr}
     }
+    puts "Table after instance #{inst}"
+#  attribute_values.each{|attr| p attr}
+
   }
 =begin
   (0...rel.attributes.length).each do |i|
