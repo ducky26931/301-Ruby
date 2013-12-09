@@ -294,12 +294,14 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
       inst_that_fit_rule = Array.new
       (0...insts.length).each do|k|
         puts("We are checking instance number: #{k}")
-        (0...covering.length).all? do |j|
+        equal = true
+        (0...covering.length).each do |j|
           if insts[k][covering[j]].equal?(rule[0][j])
             puts("Found an instance to remove!")
-            inst_that_fit_rule.push(k)
+            equal = false
           end
         end
+        inst_that_fit_rule.push(k)
       end
       # Remove each instance that is covered by the rule
       puts( "Begin to remove instances")
