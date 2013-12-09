@@ -306,9 +306,12 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
       # Remove each instance that is covered by the rule
       puts( "Begin to remove instances")
       inst_that_fit_rule.reverse!
+      puts inst_that_fit_rule
       inst_that_fit_rule.each {|i|
-        puts("Deleting instance #{inst_that_fit_rule[i]}")
-        insts.delete_at(inst_that_fit_rule[i])
+      	puts i
+      	puts inst_that_fit_rule[i]
+        puts("Deleting instance #{i}")
+        insts.delete_at(i)
       }
       # If the number removed is greater than the min covering then add the rule to the list
 #      puts("Check if the rule meets min requirements")
