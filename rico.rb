@@ -25,9 +25,9 @@ end
 
 def minimal (set_of_attr, coverings)
 	!coverings.any? {|cover|
-		set_of_attr.all?{|attr|
-			cover.include?(attr)
-		}
+    cover.all?{|attr|
+      set_of_attr.include?(attr)
+    }
 	}
 end
 
