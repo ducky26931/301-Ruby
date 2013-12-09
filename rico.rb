@@ -301,7 +301,7 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
             equal = false
           end
         end
-        if equal
+        if !equal
           inst_that_fit_rule.push(k)
         end
       end
