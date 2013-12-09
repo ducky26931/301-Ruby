@@ -285,7 +285,7 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
         rule[0].push(insts[0][covering[i]])
       end
       # Get the da values
-      (0...covering.length).each do|i|
+      (0...d_attributes.length).each do|i|
         rule[1].push(insts[0][d_attributes[i]])
       end
       # Find all instances that are covered by the rule
