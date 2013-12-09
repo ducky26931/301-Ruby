@@ -246,7 +246,7 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
    end
 
 	da_partition = partition(rel, d_attributes, attribute_values) # The partition of the decision attributes
-	puts(da_partition)
+	puts(da_partition.to_a)# print to an array
   nd_attributes = (0...rel.attributes.length).map{|idx| ### I think that this should just be a list, not a map
 		idx if d_attributes.include?(idx)
 		(idx)}.compact
@@ -276,7 +276,7 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 		}
 	end
   # Print all coverings
-  coverings.each {|cover| puts(cover)}
+  coverings.each {|cover| puts(cover.to_a)} #to print to an array 
 	### Begin creating rules from this
   full_rule_set = Array.new
   coverings.each {|covering|
