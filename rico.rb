@@ -33,7 +33,6 @@ end
 
 def partition (rel, attrs, attribute_values)
 	parts = Array.new
-	puts "Attribute numbers: #{attrs.length}"
 	case attrs.length
     when 1
       part = Array.new(attribute_values[attrs[0]].length){ |i| Array.new}
@@ -282,7 +281,8 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
       (0...d_attributes.length).each do|i|
         rule[1].push(insts[0][d_attributes[i]])
       end
-#      puts("Results of rule generated")
+      puts("Results of rule generated")
+      p rule
       # Find all instances that are covered by the rule
       inst_that_fit_rule = Array.new
       (0...insts.length).each do|k|
