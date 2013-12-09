@@ -213,7 +213,7 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
   min_covering = $stdin.gets.chomp!.to_i
 	### If they are in range then add them d_attributes
 	d_attributes = attr_num_da### The set of decision attribute indexes (ints)
-	puts 'Print out the list of decision attributes.'
+	puts 'List of decision attributes.'
   p d_attributes #######################################################################################################
 	attribute_values = Array.new(rel.attributes.length) { |i| Array.new }
 
@@ -225,15 +225,16 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
   (0...rel.attributes.length).each {|i|
     attribute_values[i] = attribute_values[i].uniq # Removes all duplicate values
   }
-   puts 'Printing out the values for each attribute'
+   puts 'Attribute value table'
   attribute_values.each{|attr| p attr}
  	da_partition = partition(rel, d_attributes, attribute_values) # The partition of the decision attributes
-	puts 'Print out the partition of decision attributes'
+	puts 'Partition of decision attributes'
   p da_partition # print to an array ###################################################################################
   
   nd_attributes = Array.new
   (0...rel.attributes.length).each {|i| nd_attributes.push(i)}
   nd_attributes -= d_attributes
+  puts 'NDA'
   p nd_attributes ######################################################################################################
 
 	coverings = Array.new # Array of a sets that make coverings, it starts empty.
@@ -261,6 +262,7 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 		}
 	end
   # Print all coverings
+  puts 'All coverings:'
   coverings.each {|cover| p cover} #to print to an array ###############################################################
 
 
