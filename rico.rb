@@ -277,7 +277,8 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 	### Begin creating rules from this
   full_rule_set = Array.new
   coverings.each {|covering|
-    rule = [[][]]
+    rule = Array.new(1) { Array.new(2) }
+        [[][]]
     insts = rel.instances.dup
     while !insts.empty?
       # Get each set of condition statements for each element of the covering
