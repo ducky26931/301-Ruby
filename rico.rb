@@ -237,9 +237,6 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 	### If they are in range then add them d_attributes
 	d_attributes = attr_num_da### The set of decision attribute indexes (ints)
 	
-	### Ask for max_covering_size
-	
-	### Ask for Min coverage for rules
 	attribute_values = Array.new(rel.attributes.length, Array.new) ### Make this# An array that holds the nominal values for each attribute in a subarray
   (0...rel.attributes.length).each do |i|
     rel.instances.each{|inst|
@@ -249,7 +246,8 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
    end
 
 	da_partition = partition(rel, d_attributes, attribute_values) # The partition of the decision attributes
-	nd_attributes = (0...rel.attributes.length).map{|idx| ### I think that this should just be a list, not a map
+	puts(da_partition)
+  nd_attributes = (0...rel.attributes.length).map{|idx| ### I think that this should just be a list, not a map
 		idx if d_attributes.include?(idx)
 		(idx)}.compact
 	#of all indexes for the attributes (0,1,2,3,....) and remove every index that is in the d_attributes list
@@ -277,7 +275,8 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 			end
 		}
 	end
-
+  # Print all coverings
+  coverings.each {|cover| puts(cover)}
 	### Begin creating rules from this
   full_rule_set = Array.new
   coverings.each {|covering|
