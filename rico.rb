@@ -243,9 +243,10 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
     puts "Generating values for attribute #{i}"
     rel.instances.each{|inst|
       attribute_values[i].push(inst[i])
+      puts "Adding value #{inst[i]} to attribute #{i} in attribute value table"
     }
     attribute_values[i] = attribute_values[i].uniq # Removes all duplicate values
-    puts "Generated values: #{attribute_values[i]}"
+    puts 'Generated values:'
   end
   puts 'Print out the attribute value table:'
   p attribute_values ###################################################################################################
