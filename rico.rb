@@ -33,6 +33,7 @@ end
 
 def partition (rel, attrs, attribute_values)
 	parts = Array.new
+	puts "Attribute numbers: #{attrs.length}"
 	case attrs.length
     when 1
       part = Array.new(attribute_values[attrs[0]].length){ |i| Array.new}
