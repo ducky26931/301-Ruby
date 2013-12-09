@@ -32,7 +32,7 @@ def minimal (set_of_attr, coverings)
 end
 
 def partition (rel, attrs, attribute_values)
-	parts = Array.new
+#	parts = Array.new
 	case attrs.length
     when 1
       part = Array.new(attribute_values[attrs[0]].length){ |i| Array.new}
@@ -57,7 +57,7 @@ def partition (rel, attrs, attribute_values)
         end
       }
     }
-    p part
+#    p part
 	when 3
     part = Array.new(attribute_values[attrs[0]].length){ |i1|
            Array.new(attribute_values[attrs[1]].length){ |i2|
@@ -290,12 +290,13 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
         equal = true
         (0...covering.length).each do |j|
           unless insts[k][covering[j]].equal?(rule[0][j])
-            puts("This inst should not be deleted yet!")
+           # puts("This inst should not be deleted yet!")
             equal = false
           end
         end
         if equal
           inst_that_fit_rule.push(k)
+          puts "Instance number #{k} should be deleted"
         end
       end
       # Remove each instance that is covered by the rule
