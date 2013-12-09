@@ -315,9 +315,9 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
         p rule
         rules_for_this_covering.push(rule)
       end
-      puts 'New Rule Set:'
-      p rules_for_this_covering
     end
+    puts 'New Rule Set:'
+    p rules_for_this_covering
     full_rule_set.push(rules_for_this_covering)
   }
 
