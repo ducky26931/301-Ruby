@@ -296,12 +296,12 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
         puts("We are checking instance number: #{k}")
         equal = true
         (0...covering.length).each do |j|
-          if insts[k][covering[j]].equal?(rule[0][j])
-            puts("Found an instance to remove!")
+          unless insts[k][covering[j]].equal?(rule[0][j])
+            puts("This inst should not be deleted yet!")
             equal = false
           end
         end
-        if !equal
+        if equal
           inst_that_fit_rule.push(k)
         end
       end
