@@ -239,16 +239,26 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 	puts 'Print out the list of decision attributes.'
   p d_attributes #######################################################################################################
 	attribute_values = Array.new(rel.attributes.length, Array.new) ### Make this# An array that holds the nominal values for each attribute in a subarray
+
+  rel.instaces.each {|inst|
+    puts "Taking values from instance #{inst}"
+    (0...rel.attributes.length).each {|attr|
+      attribute_values[attr].push(inst[attr])
+      puts "Adding value #{inst[attr]} to attribute #{attr} in attribute value table"
+    }
+  }
+=begin
   (0...rel.attributes.length).each do |i|
     puts "Generating values for attribute #{i}"
     rel.instances.each{|inst|
       attribute_values[i].push(inst[i])
       puts "Adding value #{inst[i]} to attribute #{i} in attribute value table"
     }
-    #attribute_values[i] = attribute_values[i].uniq # Removes all duplicate values
+    attribute_values[i] = attribute_values[i].uniq # Removes all duplicate values
     puts 'Generated values:'
   end
   puts 'Print out the attribute value table:'
+=end
   p attribute_values ###################################################################################################
  	da_partition = partition(rel, d_attributes, attribute_values) # The partition of the decision attributes
 	puts 'Print out the partition of decision attributes'
