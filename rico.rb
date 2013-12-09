@@ -271,7 +271,7 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
   nd_attributes -= single_coverings
 
 	# Make all subsets that contain more than 1 attribute
-	(2..max_partition_size).each do|i|
+	(2...max_partition_size).each do|i|
 		new_sets = nd_attributes.combination(i)
 		new_sets.each{|set|
 			if minimal(set, coverings)
