@@ -34,9 +34,8 @@ end
 def partition (rel, attrs, attribute_values)
 	parts = Array.new
 	case attrs.length
-	when 1
-		part = Array.new(attribute_values[attrs[0]].length, 
-				Array.new)
+    when 1
+      part = Array.new(attribute_values[attrs[0]].length){ |i| Array.new}
 		(0...rel.instances.length).each do|i|
 			part[lookup(rel.instances[i][attrs[0]], attrs[0], attribute_values)].push(i) # Find the value of the attribute for this instance and add it to the spot in partition
 		end
@@ -283,7 +282,10 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 	end
   # Print all coverings
   coverings.each {|cover| p cover} #to print to an array ###############################################################
+
+
 	### Begin creating rules from this
+=begin
   full_rule_set = Array.new
   coverings.each {|covering|
     rules_for_this_covering = Array.new
@@ -333,5 +335,6 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
   }
 
 	### Print rules and other things
+=end
 end
 	# End of Program
