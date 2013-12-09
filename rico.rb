@@ -272,42 +272,39 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
   coverings.each {|covering|
     rules_for_this_covering = Array.new
     insts = rel.instances.dup
-    while insts.length > min_covering
+    while !insts.empty?
       rule = Array.new(2) { Array.new(0) }
       # Get each set of condition statements for each element of the covering
       (0...covering.length).each do|i|
         rule[0].push(insts[0][covering[i]])
       end
-#      puts("Conditions of rule generated")
       # Get the da values
       (0...d_attributes.length).each do|i|
         rule[1].push(insts[0][d_attributes[i]])
       end
-      puts("Results of rule generated")
-      p rule
       # Find all instances that are covered by the rule
       inst_that_fit_rule = Array.new
       (0...insts.length).each do|k|
-        puts("We are checking instance number: #{k}")
+#        puts("We are checking instance number: #{k}")
         equal = true
         (0...covering.length).each do |j|
         	temp1 = rule[0][j]
         	temp2 = insts[k][covering[j]]
-          puts "Rule value: #{temp1}, Given value: #{temp2}"
+#          puts "Rule value: #{temp1}, Given value: #{temp2}"
           unless temp1 == temp2
             equal = false
           end
         end
         if equal
           inst_that_fit_rule.push(k)
-          puts "Instance number #{k} should be deleted"
+#          puts "Instance number #{k} should be deleted"
         end
       end
       # Remove each instance that is covered by the rule
-      puts( "Begin to remove instances")
+#      puts( "Begin to remove instances")
       inst_that_fit_rule.reverse!
       inst_that_fit_rule.each {|i|
-        puts("Deleting instance #{i}")
+#        puts("Deleting instance #{i}")
         insts.delete_at(i)
       }
       # If the number removed is greater than the min covering then add the rule to the list
