@@ -6,12 +6,16 @@ require 'backports'
 require_relative 'rarff-hotpatch.rb'
 
 def lookup (value, attr_num, attribute_values)
+  # Looks up the offset offset of the value in the attribute_values table
 	attribute_values[attr_num].index(value)
 end
 
 def proper_subset (partition_da, partition_other)
+  # Checks that all subpartitions of the set we are checking meet the next condition
 	partition_other.all?{|part_o|
+    # Checks if any subpartitions of the decision attribute set meets the next condidtions
 		partition_da.any?{|part_da|
+      # Checks that each element of a subpartision
 			part_o.all?{|element|
 				part_da.include?(element)
 			}
@@ -277,9 +281,10 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 	### Begin creating rules from this
   full_rule_set = Array.new
   coverings.each {|covering|
-    rule = Array.new(2) { Array.new(0) }
+  rules_for_this_covering = Array.new
     insts = rel.instances.dup
     while insts.length > min_covering
+      rule = Array.new(2) { Array.new(0) }
       # Get each set of condition statements for each element of the covering
       (0...covering.length).each do|i|
         rule[0].push(insts[0][covering[i]])
@@ -316,9 +321,10 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 #      puts("Check if the rule meets min requirements")
       if inst_that_fit_rule.length < min_covering
         rule.push(inst_that_fit_rule.length)
-        full_rule_set.push(rule)
+        rules_for_this_covering.push(rule)
       end
     end
+    full_rule_set.push(rules_for_this_covering)
   }
 
 	### Print rules and other things
