@@ -281,7 +281,7 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 	### Begin creating rules from this
   full_rule_set = Array.new
   coverings.each {|covering|
-  rules_for_this_covering = Array.new
+    rules_for_this_covering = Array.new
     insts = rel.instances.dup
     while insts.length > min_covering
       rule = Array.new(2) { Array.new(0) }
@@ -313,7 +313,7 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
       # Remove each instance that is covered by the rule
       puts( "Begin to remove instances")
       inst_that_fit_rule.reverse!
-      (0...inst_that_fit_rule.length).each {|i|
+      inst_that_fit_rule.each {|i|
         puts("Deleting instance #{inst_that_fit_rule[i]}")
         insts.delete_at(inst_that_fit_rule[i])
       }
