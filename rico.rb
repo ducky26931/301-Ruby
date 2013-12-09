@@ -293,7 +293,7 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
       # Find all instances that are covered by the rule
       inst_that_fit_rule = Array.new
       (0...insts.length).each do|k|
-        puts("We are checking insance number: #{k}")
+        puts("We are checking instance number: #{k}")
         (0...covering.length).all? do |j|
           if insts[k][covering[j]].equal?(rule[0][j])
             inst_that_fit_rule.push(k)
