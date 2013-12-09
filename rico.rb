@@ -289,7 +289,9 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
         puts("We are checking instance number: #{k}")
         equal = true
         (0...covering.length).each do |j|
-          puts "Rule value: #{rule[0][j]}, Given value: #{inst[k][coverings[j]]}"
+        	temp1 = rule[0][j]
+        	temp2 = insts[k][covering[j]]
+          puts "Rule value: #{temp1}, Given value: #{temp2}"
           unless insts[k][covering[j]].equal?(rule[0][j])
             equal = false
           end
