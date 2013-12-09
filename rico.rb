@@ -331,56 +331,39 @@ if $0 == __FILE__  # Type out a filename in the command line
       # If the rule affects at least the min number of instances then add the rule to the list
       if inst_that_fit_rule.length >= min_covering
         rule.push(inst_that_fit_rule.length)
-#        puts 'New Rule:'
-#        p rule
+        # Add this rule to the set of rules for this covering
         rules_for_this_covering.push(rule)
       end
     end
-#    puts 'New Rule Set:'
-#    p rules_for_this_covering
+    # Add the rule set for this covering to the set of all rule sets
     full_rule_set.push(rules_for_this_covering)
   }
-  ### Print rules and other things
 
+  ##### Print desired readout #####
+  # Print the set of decision attributes
   print 'Decision attribute :'
   p d_attributes
+  # Print the values number of each value for each decision attribute
   d_attributes.each{|attr|
     puts "Distribution of values for attribute #{rel.attributes[attr].name}:"
     (0...attribute_values[attr].length).each {|i|
       puts " Value: #{attribute_values[attr][i]} Occurrences: #{rel.instances.count(attribute_values[attr][i])}"
     }
   }
-
+  # Print all covering and rule sets
+  # If there are no coverings say so
   if coverings.empty?
     puts 'No coverings could be found with these specifications'
   end
 	(0...coverings.length).each {|i|
     print 'Rules for covering '
     p coverings[i]
-    p full_rule_set[i]
-
+    # If there are no rules generated then say so
+    if full_rule_set.empty?
+      puts 'No rules for this covering meet the minimum requirement'
+    else
+      p full_rule_set[i]
+    end
   }
 end
 	# End of Program
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
