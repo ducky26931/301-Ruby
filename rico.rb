@@ -32,7 +32,7 @@ def minimal (set_of_attr, coverings)
 end
 
 def partition (rel, attrs, attribute_values)
-#	parts = Array.new
+	parts = Array.new
 	case attrs.length
     when 1
       part = Array.new(attribute_values[attrs[0]].length){ |i| Array.new}
