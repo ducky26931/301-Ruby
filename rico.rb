@@ -259,8 +259,8 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 		}
 	end
   # Print all coverings
-  puts 'All coverings:'
-  coverings.each {|cover| p cover} #to print to an array ###############################################################
+#  puts 'All coverings:'
+#  coverings.each {|cover| p cover} #to print to an array ###############################################################
 
 
 	### Begin creating rules from this
@@ -302,15 +302,26 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
       # If the number removed is greater than the min covering then add the rule to the list
       if inst_that_fit_rule.length <= min_covering
         rule.push(inst_that_fit_rule.length)
-        puts 'New Rule:'
-        p rule
+#        puts 'New Rule:'
+#        p rule
         rules_for_this_covering.push(rule)
       end
     end
-    puts 'New Rule Set:'
-    p rules_for_this_covering
+#    puts 'New Rule Set:'
+#    p rules_for_this_covering
     full_rule_set.push(rules_for_this_covering)
   }
+  ### Print rules and other things
+
+  print 'Decision attribute :'
+  p d_attributes
+  d_attributes.each{|attr|
+    puts "Distribution of values for attribute #{rel.attributes[attr].name}:"
+    (0...attribute_values.length).each {|i|
+      puts " Value: #{attribute_values[attr][i]} Occurances: #{rel.instances.count{|x| x == attribute_values[attr][i]}}"
+    }
+  }
+
 
 	(0...coverings.length).each {|i|
     print 'Rules for covering '
@@ -318,6 +329,27 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
     p full_rule_set[i]
 
   }
-	### Print rules and other things
 end
 	# End of Program
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
