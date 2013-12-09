@@ -1,8 +1,7 @@
 require 'rubygems'
 require 'backports'
 
-#require_relative 'FILENAMEHERE.rb'
-#that's what you use to include needed files
+# Used for easy access to ARFF files
 require_relative 'rarff-hotpatch.rb'
 
 def lookup (value, attr_num, attribute_values)
@@ -11,19 +10,20 @@ def lookup (value, attr_num, attribute_values)
 end
 
 def proper_subset (partition_da, partition_other)
-  # Checks that all subpartitions of the set we are checking meet the next condition
+  # Checks that all subpartitions of the set O meet the next condition
 	partition_other.all?{|part_o|
-    # Checks if any subpartitions of the decision attribute set meets the next condidtions
+    # Checks if any subpartitions of the decision attribute set meets the next conditions
 		partition_da.any?{|part_da|
-      # Checks that each element of a subpartision
+      # Checks that each element of the subpartition of O is included in a subpartition of the decision attribute set
 			part_o.all?{|element|
 				part_da.include?(element)
 			}
-		}# checks to see if all elements of each of other's partition is included in a partition of the DA
+		}
 	}
 end
 
 def minimal (set_of_attr, coverings)
+  # Returns false if any element of coverings is completely contained in the set_of_attr
 	!coverings.any? {|cover|
     cover.all?{|attr|
       set_of_attr.include?(attr)
@@ -32,24 +32,32 @@ def minimal (set_of_attr, coverings)
 end
 
 def partition (rel, attrs, attribute_values)
+  # Creates parts, the Array that holds the partitions
 	parts = Array.new
+  # A switch case to handle different sized sets
 	case attrs.length
     when 1
+      # Creates the blank array to divide up the possible values
       part = Array.new(attribute_values[attrs[0]].length){ |i| Array.new}
-		(0...rel.instances.length).each do|i|
-			part[attribute_values[attrs[0]].index(rel.instances[i][attrs[0]])].push(i) # Find the value of the attribute for this instance and add it to the spot in partition
+      # Push the instance number into the correlating array positions
+		  (0...rel.instances.length).each do|i|
+			  part[attribute_values[attrs[0]].index(rel.instances[i][attrs[0]])].push(i) # Find the value of the attribute for this instance and add it to the spot in partition
 		end
+    # Remove empty partitions from the list of partitions
 		part.each{|party|
 			unless party.empty?
 				parts.push(party)
 			end
 		}
 	when 2
+    # Creates the blank array to divide up the possible values
     part = Array.new(attribute_values[attrs[0]].length){ |i1|
            Array.new(attribute_values[attrs[1]].length){ |i2| Array.new}}
+    # Push the instance number into the correlating array positions
     (0...rel.instances.length).each do |i|
       part[attribute_values[attrs[0]].index(rel.instances[i][attrs[0]])][attribute_values[attrs[1]].index(rel.instances[i][attrs[1]])].push(i)
     end
+    # Remove empty partitions and flatten the list of partitions
     part.each{|part0|
       part0.each {|part1|
         unless part1.empty?
@@ -58,13 +66,15 @@ def partition (rel, attrs, attribute_values)
       }
     }
 	when 3
+    # Creates the blank array to divide up the possible values
     part = Array.new(attribute_values[attrs[0]].length){ |i1|
            Array.new(attribute_values[attrs[1]].length){ |i2|
            Array.new(attribute_values[attrs[2]].length){ |i3| Array.new}}}
-
+    # Push the instance number into the correlating array positions
 		(0...rel.instances.length).each do |i|
 			part[attribute_values[attrs[0]].index(rel.instances[i][attrs[0]])][attribute_values[attrs[1]].index(rel.instances[i][attrs[1]])][attribute_values[attrs[2]].index(rel.instances[i][attrs[2]])].push(i)
     end
+    # Remove empty partitions and flatten the list of partitions
 		part.each{|part0|
 			part0.each {|part1|
 				part1.each{|part2|
@@ -75,13 +85,16 @@ def partition (rel, attrs, attribute_values)
 			}
 		}
 	when 4
+    # Creates the blank array to divide up the possible values
     part = Array.new(attribute_values[attrs[0]].length){ |i1|
            Array.new(attribute_values[attrs[1]].length){ |i2|
            Array.new(attribute_values[attrs[2]].length){ |i3|
            Array.new(attribute_values[attrs[3]].length){ |i4| Array.new}}}}
+    # Push the instance number into the correlating array positions
 		(0...rel.instances.length).each do |i|
       part[attribute_values[attrs[0]].index(rel.instances[i][attrs[0]])][attribute_values[attrs[1]].index(rel.instances[i][attrs[1]])][attribute_values[attrs[2]].index(rel.instances[i][attrs[2]])][attribute_values[attrs[3]].index(rel.instances[i][attrs[3]])].push(i)
 		end
+    # Remove empty partitions and flatten the list of partitions
 		part.each{|part0|
 			part0.each {|part1|
 				part1.each{|part2|
@@ -94,14 +107,17 @@ def partition (rel, attrs, attribute_values)
 			}
 		}
 	when 5
+    # Creates the blank array to divide up the possible values
     part = Array.new(attribute_values[attrs[0]].length){ |i1|
            Array.new(attribute_values[attrs[1]].length){ |i2|
            Array.new(attribute_values[attrs[2]].length){ |i3|
            Array.new(attribute_values[attrs[3]].length){ |i4|
            Array.new(attribute_values[attrs[4]].length){ |i5| Array.new}}}}}
+    # Push the instance number into the correlating array positions
 		(0...rel.instances.length).each do |i|
       part[attribute_values[attrs[0]].index(rel.instances[i][attrs[0]])][attribute_values[attrs[1]].index(rel.instances[i][attrs[1]])][attribute_values[attrs[2]].index(rel.instances[i][attrs[2]])][attribute_values[attrs[3]].index(rel.instances[i][attrs[3]])][attribute_values[attrs[4]].index(rel.instances[i][attrs[4]])].push(i)
 		end
+    # Remove empty partitions and flatten the list of partitions
 		part.each{|part0|
 			part0.each {|part1|
 				part1.each{|part2|
@@ -116,15 +132,18 @@ def partition (rel, attrs, attribute_values)
 			}
 		}
 	when 6
+    # Creates the blank array to divide up the possible values
     part = Array.new(attribute_values[attrs[0]].length){ |i1|
            Array.new(attribute_values[attrs[1]].length){ |i2|
            Array.new(attribute_values[attrs[2]].length){ |i3|
            Array.new(attribute_values[attrs[3]].length){ |i4|
            Array.new(attribute_values[attrs[4]].length){ |i5|
            Array.new(attribute_values[attrs[5]].length){ |i6| Array.new}}}}}}
+    # Push the instance number into the correlating array positions
 		(0...rel.instances.length).each do |i|
       part[attribute_values[attrs[0]].index(rel.instances[i][attrs[0]])][attribute_values[attrs[1]].index(rel.instances[i][attrs[1]])][attribute_values[attrs[2]].index(rel.instances[i][attrs[2]])][attribute_values[attrs[3]].index(rel.instances[i][attrs[3]])][attribute_values[attrs[4]].index(rel.instances[i][attrs[4]])][attribute_values[attrs[5]].index(rel.instances[i][attrs[5]])].push(i)
 		end
+    # Remove empty partitions and flatten the list of partitions
 		part.each{|part0|
 			part0.each {|part1|
 				part1.each{|part2|
@@ -141,6 +160,7 @@ def partition (rel, attrs, attribute_values)
 			}
 		}
 	else
+    # Creates the blank array to divide up the possible values
     part = Array.new(attribute_values[attrs[0]].length){ |i1|
            Array.new(attribute_values[attrs[1]].length){ |i2|
            Array.new(attribute_values[attrs[2]].length){ |i3|
@@ -148,9 +168,11 @@ def partition (rel, attrs, attribute_values)
            Array.new(attribute_values[attrs[4]].length){ |i5|
            Array.new(attribute_values[attrs[5]].length){ |i6|
            Array.new(attribute_values[attrs[6]].length){ |i7| Array.new}}}}}}}
+    # Push the instance number into the correlating array positions
 		(0...rel.instances.length).each do |i|
       part[attribute_values[attrs[0]].index(rel.instances[i][attrs[0]])][attribute_values[attrs[1]].index(rel.instances[i][attrs[1]])][attribute_values[attrs[2]].index(rel.instances[i][attrs[2]])][attribute_values[attrs[3]].index(rel.instances[i][attrs[3]])][attribute_values[attrs[4]].index(rel.instances[i][attrs[4]])][attribute_values[attrs[5]].index(rel.instances[i][attrs[5]])][attribute_values[attrs[6]].index(rel.instances[i][attrs[6]])].push(i)
 		end
+    # Remove empty partitions and flatten the list of partitions
 		part.each{|part0|
 			part0.each {|part1|
 				part1.each{|part2|
@@ -168,139 +190,146 @@ def partition (rel, attrs, attribute_values)
 				}
 			}
 		}
-		### Repeat when 2 for all sizes up to max_subset_size (7)
-
 	end
 	return parts ### DON"T KNOW IF REDUNDANT
 end
 
-if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm smart :P
+##### Load ARFF File #####
+if $0 == __FILE__  # Type out a filename in the command line
 	if ARGV[0] # If an argument is provided read the given file
 		arff_file = ARGV[0]
 		contents = File.open(arff_file).read
-
+    # Create Rarff relations to access the data
 		rel = Rarff::Relation.new
 		rel.parse(contents)
-	else # Otherwise exit and demand a filename
+	else # Otherwise demand a filename
 		puts "Please specify a filename"
 		file_name = $stdin.gets.chomp!
 		contents = File.open(file_name).read
-
+    # Create Rarff relations to access the data
 		rel = Rarff::Relation.new
 		rel.parse(contents)
 	end
 
+  # Print out all of the Attributes
 	rel.attributes.each do |attr|
 		puts attr
 	end
 
-#	attributes = (0...rel.attributes.length) # The array of all attribute indexes, an array of ints
+  ##### Get User Input #####
 	puts("Succesfully loaded the given dataset")
-  ### Ask for decision attributes
-	puts "Enter the indicies of the decision attributes. Hit enter after every attribute. When finished type 'done'"
+  # Ask for decision attributes
+	puts "Enter the indicies of the decision attributes. Indicies start at 0. Hit enter after every attribute. When finished type 'done'"
 	attr_num_da = Array.new
-	input = $stdin.gets.chomp!
-	while input != 'done'
+	input = $stdin.gets.chomp! # We should check that the input is within valid range
+	while input != 'done' # Get input until 'done' is received
 		attr_num_da << input.to_i
 		input = $stdin.gets.chomp!
-	end
-	puts("Enter the maximum partition size")
-	# 
+  end
+	puts("Enter the maximum partition size (max of 7)") # Find the max partition size
 	max_partition_size = $stdin.gets.chomp!.to_i
-  puts("Enter the minimum covering size")
-  #
+  puts("Enter the minimum covering size") # Find the minimum covering size
   min_covering = $stdin.gets.chomp!.to_i
-	### If they are in range then add them d_attributes
-	d_attributes = attr_num_da### The set of decision attribute indexes (ints)
-	print 'List of decision attributes:'
-  p d_attributes
-	attribute_values = Array.new(rel.attributes.length) { |i| Array.new }
+	d_attributes = attr_num_da # This is the set of decision attributes (their indicies)
 
+  ##### Create attribute value lookup table #####
+  # An array for each attribute
+	attribute_values = Array.new(rel.attributes.length) { |i| Array.new }
+  # Add each value in the data set and add it to the appropriate attribute_values sub array
   rel.instances.each {|inst|
     (0...rel.attributes.length).each {|attr|
       attribute_values[attr].push(inst[attr])
     }
   }
+  # Remove all duplicate values
   (0...rel.attributes.length).each {|i|
-    attribute_values[i] = attribute_values[i].uniq # Removes all duplicate values
+    attribute_values[i] = attribute_values[i].uniq
   }
-#   puts 'Attribute value table'
-#  attribute_values.each{|attr| p attr}
- 	da_partition = partition(rel, d_attributes, attribute_values) # The partition of the decision attributes
-	puts 'Partition of decision attributes'
-  p da_partition
-  
+
+  # Find the partition of the decision attributes
+ 	da_partition = partition(rel, d_attributes, attribute_values)
+	# Create the array to hold non decision attributes
   nd_attributes = Array.new
   (0...rel.attributes.length).each {|i| nd_attributes.push(i)}
   nd_attributes -= d_attributes
 
-	coverings = Array.new # Array of a sets that make coverings, it starts empty.
+  # Create the empty array to hold proper coverings
+	coverings = Array.new
 
 	# Check the partition of each non-decision attribute
 	single_coverings = Array.new
   nd_attributes.each {|attribute|
-		set = [attribute]
+		# Create a one element array to hold the attribute
+    set = [attribute]
+    # The set is already minimal so only proper subset will be checked
 		if proper_subset(da_partition, partition(rel, set, attribute_values))
-			coverings.push(set) # add the list containing the attribute to coverings
-      single_coverings.push(attribute) # remove the attribute from nDAttribute
+      # If it works then add the set to coverings and add the attribute to single_coverings
+			coverings.push(set)
+      single_coverings.push(attribute)
 		end
 	}
+  # Remove single_coverings from the attributes used to construct larger sets
   nd_attributes -= single_coverings
 
 	# Make all subsets that contain more than 1 attribute
 	(2...max_partition_size).each do|i|
+    # Check each set of size i
 		new_sets = nd_attributes.combination(i)
 		new_sets.each{|set|
+      # Check that the set is minimal
 			if minimal(set, coverings)
+        # Then check that the set covers the decision attribute's partition
 				if proper_subset(da_partition, partition(rel, set, attribute_values))
 					coverings.push(set)
 				end
 			end
 		}
 	end
-  # Print all coverings
-#  puts 'All coverings:'
-#  coverings.each {|cover| p cover} #to print to an array ###############################################################
 
-
-	### Begin creating rules from this
-
+	##### Create Rules #####
+  # The set of all rule sets
   full_rule_set = Array.new
+  # Make a rule set for each covering
   coverings.each {|covering|
+    # The set of all rules for this covering
     rules_for_this_covering = Array.new
+    # Make a copy of all instances
     insts = rel.instances.dup
+    # If there are instances left in insts more rules can be made
     while !insts.empty?
+      # Build an array to hold the conditions and results of each rule
       rule = Array.new(2) { Array.new(0) }
-      # Get each set of condition statements for each element of the covering
+      # Get each condition statement for each element of the covering
       (0...covering.length).each do|i|
         rule[0].push(insts[0][covering[i]])
       end
-      # Get the da values
+      # Get the resulting decision attribute values
       (0...d_attributes.length).each do|i|
         rule[1].push(insts[0][d_attributes[i]])
       end
       # Find all instances that are covered by the rule
       inst_that_fit_rule = Array.new
       (0...insts.length).each do|k|
+        # Preset equal for a control variable
         equal = true
         (0...covering.length).each do |j|
-        	temp1 = rule[0][j]
-        	temp2 = insts[k][covering[j]]
-          unless temp1 == temp2
+          # If any condition of the rule is not met equal is set to false
+          unless rule[0][j] == insts[k][covering[j]]
             equal = false
           end
         end
+        # If every condition of the rule is met then that instance is added to the array
         if equal
           inst_that_fit_rule.push(k)
         end
       end
-      # Remove each instance that is covered by the rule
+      # Remove each instance that is covered by the rule so that removal is easy
       inst_that_fit_rule.reverse!
       inst_that_fit_rule.each {|i|
         insts.delete_at(i)
       }
-      # If the number removed is greater than the min covering then add the rule to the list
-      if inst_that_fit_rule.length <= min_covering
+      # If the rule affects at least the min number of instances then add the rule to the list
+      if inst_that_fit_rule.length >= min_covering
         rule.push(inst_that_fit_rule.length)
 #        puts 'New Rule:'
 #        p rule
@@ -322,7 +351,9 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
     }
   }
 
-
+  if coverings.empty?
+    puts 'No coverings could be found with these specifications'
+  end
 	(0...coverings.length).each {|i|
     print 'Rules for covering '
     p coverings[i]
