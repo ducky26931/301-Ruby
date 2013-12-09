@@ -197,23 +197,23 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 #	attributes = (0...rel.attributes.length) # The array of all attribute indexes, an array of ints
 	puts("Succesfully loaded the given dataset")
   ### Ask for decision attributes
-	puts("Please enter the indexes of the decisio attributes you would like to use hit enter after every attribute and  type 'done' when list is complete")
+	puts "Enter the indicies of the decision attributes. Hit enter after every attribute. When finished type 'done'"
 	attr_num_da = Array.new
 	input = $stdin.gets.chomp!
 	while input != 'done'
 		attr_num_da << input.to_i
 		input = $stdin.gets.chomp!
 	end
-	puts("Please enter the maximum partition size")
+	puts("Enter the maximum partition size")
 	# 
 	max_partition_size = $stdin.gets.chomp!.to_i
-  puts("Please enter the minimum covering size")
+  puts("Enter the minimum covering size")
   #
   min_covering = $stdin.gets.chomp!.to_i
 	### If they are in range then add them d_attributes
 	d_attributes = attr_num_da### The set of decision attribute indexes (ints)
-	puts 'List of decision attributes.'
-  p d_attributes #######################################################################################################
+	print 'List of decision attributes:'
+  p d_attributes
 	attribute_values = Array.new(rel.attributes.length) { |i| Array.new }
 
   rel.instances.each {|inst|
@@ -224,17 +224,15 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
   (0...rel.attributes.length).each {|i|
     attribute_values[i] = attribute_values[i].uniq # Removes all duplicate values
   }
-   puts 'Attribute value table'
-  attribute_values.each{|attr| p attr}
+#   puts 'Attribute value table'
+#  attribute_values.each{|attr| p attr}
  	da_partition = partition(rel, d_attributes, attribute_values) # The partition of the decision attributes
 	puts 'Partition of decision attributes'
-  p da_partition # print to an array ###################################################################################
+  p da_partition
   
   nd_attributes = Array.new
   (0...rel.attributes.length).each {|i| nd_attributes.push(i)}
   nd_attributes -= d_attributes
-  puts 'NDA'
-  p nd_attributes ######################################################################################################
 
 	coverings = Array.new # Array of a sets that make coverings, it starts empty.
 
@@ -284,30 +282,24 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
       # Find all instances that are covered by the rule
       inst_that_fit_rule = Array.new
       (0...insts.length).each do|k|
-#        puts("We are checking instance number: #{k}")
         equal = true
         (0...covering.length).each do |j|
         	temp1 = rule[0][j]
         	temp2 = insts[k][covering[j]]
-#          puts "Rule value: #{temp1}, Given value: #{temp2}"
           unless temp1 == temp2
             equal = false
           end
         end
         if equal
           inst_that_fit_rule.push(k)
-#          puts "Instance number #{k} should be deleted"
         end
       end
       # Remove each instance that is covered by the rule
-#      puts( "Begin to remove instances")
       inst_that_fit_rule.reverse!
       inst_that_fit_rule.each {|i|
-#        puts("Deleting instance #{i}")
         insts.delete_at(i)
       }
       # If the number removed is greater than the min covering then add the rule to the list
-#      puts("Check if the rule meets min requirements")
       if inst_that_fit_rule.length <= min_covering
         rule.push(inst_that_fit_rule.length)
         puts 'New Rule:'
@@ -320,6 +312,12 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
     full_rule_set.push(rules_for_this_covering)
   }
 
+	(0...coverings.length).each {|i|
+    print 'Rules for covering '
+    p coverings[i]
+    p full_rule_set[i]
+
+  }
 	### Print rules and other things
 end
 	# End of Program
