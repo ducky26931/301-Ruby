@@ -236,7 +236,7 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
   min_covering = $stdin.gets.chomp!.to_i
 	### If they are in range then add them d_attributes
 	d_attributes = attr_num_da### The set of decision attribute indexes (ints)
-	
+	p d_attributes #######################################################################################################
 	attribute_values = Array.new(rel.attributes.length, Array.new) ### Make this# An array that holds the nominal values for each attribute in a subarray
   (0...rel.attributes.length).each do |i|
     rel.instances.each{|inst|
@@ -244,12 +244,13 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
     }
     attribute_values[i] = attribute_values[i].uniq # Removes all duplicate values
    end
-
-	da_partition = partition(rel, d_attributes, attribute_values) # The partition of the decision attributes
-	p da_partition# print to an array
+  p attribute_values ###################################################################################################
+ 	da_partition = partition(rel, d_attributes, attribute_values) # The partition of the decision attributes
+	p da_partition # print to an array ###################################################################################
   nd_attributes = (0...rel.attributes.length).map{|idx| ### I think that this should just be a list, not a map
 		idx if d_attributes.include?(idx)
 		(idx)}.compact
+  p nd_attributes ######################################################################################################
 	#of all indexes for the attributes (0,1,2,3,....) and remove every index that is in the d_attributes list
 	coverings = Array.new # Array of a sets that make coverings, it starts empty.
 
@@ -276,7 +277,7 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 		}
 	end
   # Print all coverings
-  coverings.each {|cover| p cover} #to print to an array
+  coverings.each {|cover| p cover} #to print to an array ###############################################################
 =begin
 	### Begin creating rules from this
   full_rule_set = Array.new
