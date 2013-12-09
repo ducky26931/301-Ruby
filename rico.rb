@@ -226,7 +226,10 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 	### Ask for decision attributes
 	puts("Please enter the attribute number for the decision attributes")
 	# 
-	 max_partition_size = $stdin.gets.chomp!.to_i
+	max_partition_size = $stdin.gets.chomp!.to_i
+  puts("Please enter the minimum covering size")
+  #
+  min_covering = $stdin.gets.chomp!.to_i
 	### If they are in range then add them d_attributes
 	d_attributes = attr_num_da### The set of decision attribute indexes (ints)
 	
@@ -245,8 +248,6 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 	nd_attributes = (0...rel.attributes.length).map{|idx| ### I think that this should just be a list, not a map
 		idx if d_attributes.include?(idx)
 		(idx)}.compact
-	#nd_attributes = (0...rel.attributes.length).delete(d_attributes) ############## What the fuck
-	#nd_attributes = (0...rel.attributes.length).reject{|idx|d_attributes.include?(idx)}# this should make a list ########## Maybe this, I don't know and I don't care
 	#of all indexes for the attributes (0,1,2,3,....) and remove every index that is in the d_attributes list
 	coverings = Array.new # Array of a sets that make coverings, it starts empty.
 
@@ -272,8 +273,42 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 			end
 		}
 	end
-	# Coverings if done and complete at this point
+
 	### Begin creating rules from this
+  full_rule_set = Array.new
+  coverings.each {|covering|
+    rule = [[][]]
+    insts = rel.instances.dup
+    while !insts.empty?
+      # Get each set of condition statements for each element of the covering
+      (0...covering.length).each do|i|
+        rule[0].push(insts[0][covering[i]])
+      end
+      # Get the da values
+      (0...covering.length).each do|i|
+        rule[1].push(insts[0][d_attributes[i]])
+      end
+      # Find all instances that are covered by the rule
+      inst_that_fit_rule = Array.new
+      (0...insts.length).each do|i|
+        (0...covering.length).all? do |j|
+          if insts[i][covering[j]].equal?(rule[0][j])
+            inst_that_fit_rule.push(i)
+          end
+        end
+      end
+      # Remove each instance that is covered by the rule
+      (0...inst_that_fit_rule.length).each {|index|
+        insts.delete_at(index)
+      }
+      # If the number removed is greater than the min covering then add the rule to the list
+      if inst_that_fit_rule.length < min_covering
+        rule.push(inst_that_fit_rule.length)
+        full_rule_set.push(rule)
+      end
+    end
+  }
+
 	### Print rules and other things
 end
 	# End of Program
