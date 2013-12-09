@@ -57,14 +57,13 @@ def partition (rel, attrs, attribute_values)
         end
       }
     }
-#    p part
 	when 3
     part = Array.new(attribute_values[attrs[0]].length){ |i1|
            Array.new(attribute_values[attrs[1]].length){ |i2|
            Array.new(attribute_values[attrs[2]].length){ |i3| Array.new}}}
 
 		(0...rel.instances.length).each do |i|
-			part[attribute_values[attrs[0]].index(rel.instances[i][attrs[0]])][attribute_values[attrs[1]].index(rel.instances[i][attrs[2]])][attribute_values[attrs[2]].index(rel.instances[i][attrs[2]])].push(i)
+			part[attribute_values[attrs[0]].index(rel.instances[i][attrs[0]])][attribute_values[attrs[1]].index(rel.instances[i][attrs[1]])][attribute_values[attrs[2]].index(rel.instances[i][attrs[2]])].push(i)
     end
 		part.each{|part0|
 			part0.each {|part1|
