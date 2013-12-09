@@ -259,7 +259,9 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
   end
   puts 'Print out the attribute value table:'
 =end
-  p attribute_values ###################################################################################################
+  puts 'Printing out the values for each attribute'
+  attribute_values.each{|attr| p attr}
+  #p attribute_values ###################################################################################################
  	da_partition = partition(rel, d_attributes, attribute_values) # The partition of the decision attributes
 	puts 'Print out the partition of decision attributes'
   p da_partition # print to an array ###################################################################################
