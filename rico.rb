@@ -45,8 +45,8 @@ def partition (rel, attrs, attribute_values)
 			end
 		}
 	when 2
-		part = Array.new(attribute_values[attrs[0]].length, 
-				Array.new(attribute_values[attrs[1]].length, Array.new))
+    part = Array.new(attribute_values[attrs[0]].length){ |i1|
+      Array.new(attribute_values[attrs[1]].length){ |i2| Array.new}}
 		(0...rel.instances.length).each do |i|
 			part[lookup(rel.instances[i][attrs[0]], attrs[0], attribute_values)]
 				[lookup(rel.instances[i][attrs[1]], attrs[1], attribute_values)].push(i) # Find the value of the attribute for this instance and add it to the spot in partition
@@ -254,13 +254,8 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
   p da_partition # print to an array ###################################################################################
   
   nd_attributes = Array.new
-  (0...rel.attributes.length).each {|i| nd_attributes.push(i)}  
+  (0...rel.attributes.length).each {|i| nd_attributes.push(i)}
   nd_attributes -= d_attributes
-=begin
-  nd_attributes = (0...rel.attributes.length).map{|idx| ### I think that this should just be a list, not a map
-		idx if d_attributes.include?(idx)
-		(idx)}.compact
-=end
   p nd_attributes ######################################################################################################
 
 	coverings = Array.new # Array of a sets that make coverings, it starts empty.
