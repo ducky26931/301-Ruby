@@ -245,7 +245,7 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
       attribute_values[i].push(inst[i])
       puts "Adding value #{inst[i]} to attribute #{i} in attribute value table"
     }
-    attribute_values[i] = attribute_values[i].uniq # Removes all duplicate values
+    #attribute_values[i] = attribute_values[i].uniq # Removes all duplicate values
     puts 'Generated values:'
   end
   puts 'Print out the attribute value table:'
