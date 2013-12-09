@@ -292,7 +292,7 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
         	temp1 = rule[0][j]
         	temp2 = insts[k][covering[j]]
           puts "Rule value: #{temp1}, Given value: #{temp2}"
-          unless temp1.equal?(temp2)
+          unless temp1 == temp2
             equal = false
           end
         end
