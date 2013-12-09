@@ -279,7 +279,7 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
   coverings.each {|covering|
     rule = Array.new(1) { Array.new(2) }
     insts = rel.instances.dup
-    while !insts.empty?
+    while insts.length > min_covering
       # Get each set of condition statements for each element of the covering
       (0...covering.length).each do|i|
         rule[0].push(insts[0][covering[i]])
@@ -298,8 +298,9 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
         end
       end
       # Remove each instance that is covered by the rule
-      (0...inst_that_fit_rule.length).each {|index|
-        insts.delete_at(index)
+      inst_that_fit_rule.reverse!
+      (0...inst_that_fit_rule.length).each {|i|
+        insts.delete_at(inst_that_fit_rule[i])
       }
       # If the number removed is greater than the min covering then add the rule to the list
       if inst_that_fit_rule.length < min_covering
