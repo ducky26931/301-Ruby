@@ -284,18 +284,19 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
       (0...covering.length).each do|i|
         rule[0].push(insts[0][covering[i]])
       end
-      puts("Conditions of rule generated")
+#      puts("Conditions of rule generated")
       # Get the da values
       (0...d_attributes.length).each do|i|
         rule[1].push(insts[0][d_attributes[i]])
       end
-      puts("Results of rule generated")
+#      puts("Results of rule generated")
       # Find all instances that are covered by the rule
       inst_that_fit_rule = Array.new
       (0...insts.length).each do|k|
         puts("We are checking instance number: #{k}")
         (0...covering.length).all? do |j|
           if insts[k][covering[j]].equal?(rule[0][j])
+            puts("Found an instance to remove!")
             inst_that_fit_rule.push(k)
           end
         end
@@ -304,10 +305,11 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
       puts( "Begin to remove instances")
       inst_that_fit_rule.reverse!
       (0...inst_that_fit_rule.length).each {|i|
+        puts("Deleting instance #{inst_that_fit_rule[i]}")
         insts.delete_at(inst_that_fit_rule[i])
       }
       # If the number removed is greater than the min covering then add the rule to the list
-      puts("Check if the rule meets min requirements")
+#      puts("Check if the rule meets min requirements")
       if inst_that_fit_rule.length < min_covering
         rule.push(inst_that_fit_rule.length)
         full_rule_set.push(rule)
