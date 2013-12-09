@@ -317,8 +317,8 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
   p d_attributes
   d_attributes.each{|attr|
     puts "Distribution of values for attribute #{rel.attributes[attr].name}:"
-    (0...attribute_values.length).each {|i|
-      puts " Value: #{attribute_values[attr][i]} Occurances: #{rel.instances.count{|x| x == attribute_values[attr][i]}}"
+    (0...attribute_values[attr].length).each {|i|
+      puts " Value: #{attribute_values[attr][i]} Occurrences: #{rel.instances.count(attribute_values[attr][i])}"
     }
   }
 
