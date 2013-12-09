@@ -54,6 +54,8 @@ def partition (rel, attrs, attribute_values)
       temp0 = rel.instances[i][attrs[0]]
       temp1 = rel.instances[i][attrs[1]]
       puts "Values are #{temp0} and #{temp1}"
+      p attribute_values[attrs[0]].index(rel.instances[i][attrs[0]])
+      p attribute_values[attrs[1]].index(rel.instances[i][attrs[1]])
       part[attribute_values[attrs[0]].index(rel.instances[i][attrs[0]])]
           [attribute_values[attrs[1]].index(rel.instances[i][attrs[1]])].push(i)
 #      part[lookup(rel.instances[i][attrs[0]], attrs[0], attribute_values)]
