@@ -309,12 +309,12 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
       }
       # If the number removed is greater than the min covering then add the rule to the list
 #      puts("Check if the rule meets min requirements")
-      if inst_that_fit_rule.length < min_covering
+      if inst_that_fit_rule.length <= min_covering
         rule.push(inst_that_fit_rule.length)
         puts 'New Rule:'
         p rule
+        rules_for_this_covering.push(rule)
       end
-      rules_for_this_covering.push(rule)
       puts 'New Rule Set:'
       p rules_for_this_covering
     end
