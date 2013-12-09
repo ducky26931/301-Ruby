@@ -47,8 +47,13 @@ def partition (rel, attrs, attribute_values)
 	when 2
     part = Array.new(attribute_values[attrs[0]].length){ |i1|
       Array.new(attribute_values[attrs[1]].length){ |i2| Array.new}}
+    p part
 		(0...rel.instances.length).each do |i|
-			part[lookup(rel.instances[i][attrs[0]], attrs[0], attribute_values)]
+			puts "Checking instance #{i}"
+      temp0 = rel.instances[i][attrs[0]]
+      temp1 = rel.instances[i][attrs[1]]
+      puts "Values are #{temp0} and #{temp1}"
+      part[lookup(rel.instances[i][attrs[0]], attrs[0], attribute_values)]
 				[lookup(rel.instances[i][attrs[1]], attrs[1], attribute_values)].push(i) # Find the value of the attribute for this instance and add it to the spot in partition
 		end
 		part.each{|part0|
@@ -58,6 +63,7 @@ def partition (rel, attrs, attribute_values)
 				end
 			}
 		}
+    p part
 	when 3
 		part = Array.new(attribute_values[attrs[0]].length, 
 				Array.new(attribute_values[attrs[1]].length, 
