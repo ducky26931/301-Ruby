@@ -284,14 +284,16 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
       (0...covering.length).each do|i|
         rule[0].push(insts[0][covering[i]])
       end
+      puts("Conditions of rule generated")
       # Get the da values
       (0...d_attributes.length).each do|i|
         rule[1].push(insts[0][d_attributes[i]])
       end
+      puts("Results of rule generated")
       # Find all instances that are covered by the rule
       inst_that_fit_rule = Array.new
       (0...insts.length).each do|i|
-        puts("I'm printing shit: #{i}")
+        puts("We are checking insance number: #{i}")
         (0...covering.length).all? do |j|
           if insts[i][covering[j]].equal?(rule[0][j])
             inst_that_fit_rule.push(i)
@@ -299,11 +301,13 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
         end
       end
       # Remove each instance that is covered by the rule
+      puts( "Begin to remove instances")
       inst_that_fit_rule.reverse!
       (0...inst_that_fit_rule.length).each {|i|
         insts.delete_at(inst_that_fit_rule[i])
       }
       # If the number removed is greater than the min covering then add the rule to the list
+      puts("Check if the rule meets min requirements")
       if inst_that_fit_rule.length < min_covering
         rule.push(inst_that_fit_rule.length)
         full_rule_set.push(rule)
