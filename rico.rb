@@ -220,6 +220,7 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 
 	attributes = (0...rel.attributes.length) # The array of all attribute indexes, an array of ints
 	puts("Succesfully loaded the given dataset")
+  ### Ask for decision attributes
 	puts("Please enter the indexes of the decisio attributes you would like to use hit enter after every attribute and  type 'done' when list is complete")
 	attr_num_da = Array.new
 	input = $stdin.gets.chomp!
@@ -227,8 +228,7 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 		attr_num_da << input.to_i
 		input = $stdin.gets.chomp!
 	end
-	### Ask for decision attributes
-	puts("Please enter the attribute number for the decision attributes")
+	puts("Please enter the maximum partition size")
 	# 
 	max_partition_size = $stdin.gets.chomp!.to_i
   puts("Please enter the minimum covering size")
@@ -246,7 +246,7 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
    end
 
 	da_partition = partition(rel, d_attributes, attribute_values) # The partition of the decision attributes
-	puts(da_partition.to_a)# print to an array
+	p da_partition# print to an array
   nd_attributes = (0...rel.attributes.length).map{|idx| ### I think that this should just be a list, not a map
 		idx if d_attributes.include?(idx)
 		(idx)}.compact
@@ -276,7 +276,8 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 		}
 	end
   # Print all coverings
-  coverings.each {|cover| puts(cover.to_a)} #to print to an array 
+  coverings.each {|cover| p cover} #to print to an array
+=begin
 	### Begin creating rules from this
   full_rule_set = Array.new
   coverings.each {|covering|
@@ -327,5 +328,6 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
   }
 
 	### Print rules and other things
+=end
 end
 	# End of Program
