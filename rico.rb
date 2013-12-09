@@ -38,7 +38,7 @@ def partition (rel, attrs, attribute_values)
     when 1
       part = Array.new(attribute_values[attrs[0]].length){ |i| Array.new}
 		(0...rel.instances.length).each do|i|
-			part[lookup(rel.instances[i][attrs[0]], attrs[0], attribute_values)].push(i) # Find the value of the attribute for this instance and add it to the spot in partition
+			part[attribute_values[attrs[0]].index(rel.instances[i][attrs[0]])].push(i) # Find the value of the attribute for this instance and add it to the spot in partition
 		end
 		part.each{|party|
 			unless party.empty?
@@ -47,7 +47,7 @@ def partition (rel, attrs, attribute_values)
 		}
 	when 2
     part = Array.new(attribute_values[attrs[0]].length){ |i1|
-      Array.new(attribute_values[attrs[1]].length){ |i2| Array.new}}
+           Array.new(attribute_values[attrs[1]].length){ |i2| Array.new}}
     (0...rel.instances.length).each do |i|
       part[attribute_values[attrs[0]].index(rel.instances[i][attrs[0]])][attribute_values[attrs[1]].index(rel.instances[i][attrs[1]])].push(i)
     end
@@ -60,14 +60,13 @@ def partition (rel, attrs, attribute_values)
     }
     p part
 	when 3
-		part = Array.new(attribute_values[attrs[0]].length, 
-				Array.new(attribute_values[attrs[1]].length, 
-				Array.new(attribute_values[attrs[2]].length, Array.new)))
+    part = Array.new(attribute_values[attrs[0]].length){ |i1|
+           Array.new(attribute_values[attrs[1]].length){ |i2|
+           Array.new(attribute_values[attrs[2]].length){ |i3| Array.new}}}
+
 		(0...rel.instances.length).each do |i|
-			part[lookup(rel.instances[i][attrs[0]], attrs[0], attribute_values)]
-				[lookup(rel.instances[i][attrs[1]], attrs[1], attribute_values)]
-				[lookup(rel.instances[i][attrs[2]], attrs[2], attribute_values)].push(i) # Find the value of the attribute for this instance and add it to the spot in partition
-		end
+			part[attribute_values[attrs[0]].index(rel.instances[i][attrs[0]])][attribute_values[attrs[1]].index(rel.instances[i][attrs[2]])][attribute_values[attrs[2]].index(rel.instances[i][attrs[2]])].push(i)
+    end
 		part.each{|part0|
 			part0.each {|part1|
 				part1.each{|part2|
@@ -78,15 +77,12 @@ def partition (rel, attrs, attribute_values)
 			}
 		}
 	when 4
-		part = Array.new(attribute_values[attrs[0]].length, 
-				Array.new(attribute_values[attrs[1]].length, 
-				Array.new(attribute_values[attrs[2]].length, 
-				Array.new(attribute_values[attrs[3]].length, Array.new))))
+    part = Array.new(attribute_values[attrs[0]].length){ |i1|
+           Array.new(attribute_values[attrs[1]].length){ |i2|
+           Array.new(attribute_values[attrs[2]].length){ |i3|
+           Array.new(attribute_values[attrs[3]].length){ |i4| Array.new}}}}
 		(0...rel.instances.length).each do |i|
-			part[lookup(rel.instances[i][attrs[0]], attrs[0], attribute_values)]
-				[lookup(rel.instances[i][attrs[1]], attrs[1], attribute_values)]
-				[lookup(rel.instances[i][attrs[2]], attrs[2], attribute_values)]
-				[lookup(rel.instances[i][attrs[3]], attrs[3], attribute_values)].push(i) # Find the value of the attribute for this instance and add it to the spot in partition
+      part[attribute_values[attrs[0]].index(rel.instances[i][attrs[0]])][attribute_values[attrs[1]].index(rel.instances[i][attrs[1]])][attribute_values[attrs[2]].index(rel.instances[i][attrs[2]])][attribute_values[attrs[3]].index(rel.instances[i][attrs[3]])].push(i)
 		end
 		part.each{|part0|
 			part0.each {|part1|
@@ -100,18 +96,13 @@ def partition (rel, attrs, attribute_values)
 			}
 		}
 	when 5
-		part = Array.new(attribute_values[attrs[0]].length, 
-				Array.new(attribute_values[attrs[1]].length, 
-				Array.new(attribute_values[attrs[2]].length, 
-				Array.new(attribute_values[attrs[3]].length, 
-				Array.new(attribute_values[attrs[4]].length, 
-				Array.new)))))
+    part = Array.new(attribute_values[attrs[0]].length){ |i1|
+           Array.new(attribute_values[attrs[1]].length){ |i2|
+           Array.new(attribute_values[attrs[2]].length){ |i3|
+           Array.new(attribute_values[attrs[3]].length){ |i4|
+           Array.new(attribute_values[attrs[4]].length){ |i5| Array.new}}}}}
 		(0...rel.instances.length).each do |i|
-			part[lookup(rel.instances[i][attrs[0]], attrs[0], attribute_values)]
-				[lookup(rel.instances[i][attrs[1]], attrs[1], attribute_values)]
-				[lookup(rel.instances[i][attrs[2]], attrs[2], attribute_values)]
-				[lookup(rel.instances[i][attrs[3]], attrs[3], attribute_values)]
-				[lookup(rel.instances[i][attrs[4]], attrs[4], attribute_values)].push(i) # Find the value of the attribute for this instance and add it to the spot in partition
+      part[attribute_values[attrs[0]].index(rel.instances[i][attrs[0]])][attribute_values[attrs[1]].index(rel.instances[i][attrs[1]])][attribute_values[attrs[2]].index(rel.instances[i][attrs[2]])][attribute_values[attrs[3]].index(rel.instances[i][attrs[3]])][attribute_values[attrs[4]].index(rel.instances[i][attrs[4]])].push(i)
 		end
 		part.each{|part0|
 			part0.each {|part1|
@@ -127,20 +118,14 @@ def partition (rel, attrs, attribute_values)
 			}
 		}
 	when 6
-		part = Array.new(attribute_values[attrs[0]].length, 
-				Array.new(attribute_values[attrs[1]].length, 
-				Array.new(attribute_values[attrs[2]].length, 
-				Array.new(attribute_values[attrs[3]].length, 
-				Array.new(attribute_values[attrs[4]].length, 
-				Array.new(attribute_values[attrs[5]].length, 
-				Array.new))))))
+    part = Array.new(attribute_values[attrs[0]].length){ |i1|
+           Array.new(attribute_values[attrs[1]].length){ |i2|
+           Array.new(attribute_values[attrs[2]].length){ |i3|
+           Array.new(attribute_values[attrs[3]].length){ |i4|
+           Array.new(attribute_values[attrs[4]].length){ |i5|
+           Array.new(attribute_values[attrs[5]].length){ |i6| Array.new}}}}}}
 		(0...rel.instances.length).each do |i|
-			part[lookup(rel.instances[i][attrs[0]], attrs[0], attribute_values)]
-				[lookup(rel.instances[i][attrs[1]], attrs[1], attribute_values)]
-				[lookup(rel.instances[i][attrs[2]], attrs[2], attribute_values)]
-				[lookup(rel.instances[i][attrs[3]], attrs[3], attribute_values)]
-				[lookup(rel.instances[i][attrs[4]], attrs[4], attribute_values)]
-				[lookup(rel.instances[i][attrs[5]], attrs[5], attribute_values)].push(i) # Find the value of the attribute for this instance and add it to the spot in partition
+      part[attribute_values[attrs[0]].index(rel.instances[i][attrs[0]])][attribute_values[attrs[1]].index(rel.instances[i][attrs[1]])][attribute_values[attrs[2]].index(rel.instances[i][attrs[2]])][attribute_values[attrs[3]].index(rel.instances[i][attrs[3]])][attribute_values[attrs[4]].index(rel.instances[i][attrs[4]])][attribute_values[attrs[5]].index(rel.instances[i][attrs[5]])].push(i)
 		end
 		part.each{|part0|
 			part0.each {|part1|
@@ -158,22 +143,15 @@ def partition (rel, attrs, attribute_values)
 			}
 		}
 	else
-		part = Array.new(attribute_values[attrs[0]].length, 
-				Array.new(attribute_values[attrs[1]].length, 
-				Array.new(attribute_values[attrs[2]].length, 
-				Array.new(attribute_values[attrs[3]].length, 
-				Array.new(attribute_values[attrs[4]].length, 
-				Array.new(attribute_values[attrs[5]].length, 
-				Array.new(attribute_values[attrs[6]].length, 
-				Array.new)))))))
+    part = Array.new(attribute_values[attrs[0]].length){ |i1|
+           Array.new(attribute_values[attrs[1]].length){ |i2|
+           Array.new(attribute_values[attrs[2]].length){ |i3|
+           Array.new(attribute_values[attrs[3]].length){ |i4|
+           Array.new(attribute_values[attrs[4]].length){ |i5|
+           Array.new(attribute_values[attrs[5]].length){ |i6|
+           Array.new(attribute_values[attrs[6]].length){ |i7| Array.new}}}}}}}
 		(0...rel.instances.length).each do |i|
-			part[lookup(rel.instances[i][attrs[0]], attrs[0], attribute_values)]
-				[lookup(rel.instances[i][attrs[1]], attrs[1], attribute_values)]
-				[lookup(rel.instances[i][attrs[2]], attrs[2], attribute_values)]
-				[lookup(rel.instances[i][attrs[3]], attrs[3], attribute_values)]
-				[lookup(rel.instances[i][attrs[4]], attrs[4], attribute_values)]
-				[lookup(rel.instances[i][attrs[5]], attrs[5], attribute_values)]
-				[lookup(rel.instances[i][attrs[6]], attrs[6], attribute_values)].push(i) # Find the value of the attribute for this instance and add it to the spot in partition
+      part[attribute_values[attrs[0]].index(rel.instances[i][attrs[0]])][attribute_values[attrs[1]].index(rel.instances[i][attrs[1]])][attribute_values[attrs[2]].index(rel.instances[i][attrs[2]])][attribute_values[attrs[3]].index(rel.instances[i][attrs[3]])][attribute_values[attrs[4]].index(rel.instances[i][attrs[4]])][attribute_values[attrs[5]].index(rel.instances[i][attrs[5]])][attribute_values[attrs[6]].index(rel.instances[i][attrs[6]])].push(i)
 		end
 		part.each{|part0|
 			part0.each {|part1|
