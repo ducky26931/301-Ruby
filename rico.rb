@@ -218,7 +218,7 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 		puts attr
 	end
 
-	attributes = (0...rel.attributes.length) # The array of all attribute indexes, an array of ints
+#	attributes = (0...rel.attributes.length) # The array of all attribute indexes, an array of ints
 	puts("Succesfully loaded the given dataset")
   ### Ask for decision attributes
 	puts("Please enter the indexes of the decisio attributes you would like to use hit enter after every attribute and  type 'done' when list is complete")
@@ -239,26 +239,17 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 	puts 'Print out the list of decision attributes.'
   p d_attributes #######################################################################################################
 	attribute_values = Array.new(rel.attributes.length) { |i| Array.new }
-	#attribute_values = Array.new(rel.attributes.length, Array.new) ### Make this# An array that holds the nominal values for each attribute in a subarray
-#  attribute_values.each{|attr| p attr}
 
   rel.instances.each {|inst|
-#    puts "Taking values from instance #{inst}"
     (0...rel.attributes.length).each {|attr|
       attribute_values[attr].push(inst[attr])
-#      puts "Adding value #{inst[attr]} to attribute #{attr} in attribute value table"
-#  attribute_values.each{|attr| p attr}
     }
-#    puts "Table after instance #{inst}"
-#  attribute_values.each{|attr| p attr}
-
   }
-    (0...rel.attributes.length).each {|i|
+  (0...rel.attributes.length).each {|i|
     attribute_values[i] = attribute_values[i].uniq # Removes all duplicate values
-}
+  }
    puts 'Printing out the values for each attribute'
   attribute_values.each{|attr| p attr}
-  #p attribute_values ###################################################################################################
  	da_partition = partition(rel, d_attributes, attribute_values) # The partition of the decision attributes
 	puts 'Print out the partition of decision attributes'
   p da_partition # print to an array ###################################################################################
@@ -266,7 +257,6 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 		idx if d_attributes.include?(idx)
 		(idx)}.compact
   p nd_attributes ######################################################################################################
-	#of all indexes for the attributes (0,1,2,3,....) and remove every index that is in the d_attributes list
 	coverings = Array.new # Array of a sets that make coverings, it starts empty.
 
 	# Check the partition of each non-decision attribute
@@ -293,7 +283,6 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 	end
   # Print all coverings
   coverings.each {|cover| p cover} #to print to an array ###############################################################
-=begin
 	### Begin creating rules from this
   full_rule_set = Array.new
   coverings.each {|covering|
@@ -344,6 +333,5 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
   }
 
 	### Print rules and other things
-=end
 end
 	# End of Program
