@@ -266,7 +266,7 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
 
 
 	### Begin creating rules from this
-=begin
+
   full_rule_set = Array.new
   coverings.each {|covering|
     rules_for_this_covering = Array.new
@@ -316,6 +316,5 @@ if $0 == __FILE__  # TYPE OUT A FILE NAME DUMBASS - that's for me.. because I'm 
   }
 
 	### Print rules and other things
-=end
 end
 	# End of Program
